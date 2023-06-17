@@ -1,0 +1,53 @@
+* {
+    font-family: var(--font-light);
+}
+
+header {
+    width: 100%;
+    min-width: 100vw;
+    height: 5rem;
+    border-top: 1px solid var(--cinza);
+    border-bottom: 1px solid var(--cinza);
+    display: flex;
+    align-items: center;
+
+}
+
+header ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    gap: 1rem;
+    height: 100%;
+}
+
+header ul li {
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+
+}
+
+.finalize_purchase {
+    background: var(--background-button);
+    border: 1px solid var(--border-button);
+    border-radius: 20px;
+    height: 3rem;
+    padding: 1rem 2rem;
+    color: black;
+    margin-left: auto;
+    font-weight: 600;
+
+}
+
+.icon-car-shopping {
+    height: 3rem;
+    width: 5rem;
+    padding: .5rem;
+    background: transparent;
+}
