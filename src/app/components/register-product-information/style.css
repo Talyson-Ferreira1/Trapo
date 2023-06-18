@@ -4,7 +4,7 @@ section {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .form-info-poduct {
@@ -15,16 +15,25 @@ section {
     padding: 3rem;
 }
 
+.form-info-poduct h2 {
+    font-size: 1rem;
+}
+
 .form-info-poduct label {
     display: flex;
     padding: .5rem 0;
+
 }
+
+
 
 .name-product,
 .price-product,
 .description-product,
 .category-product,
-.gener-product {
+.gener-product,
+.send-description-product{
+    position: relative;
     outline: none;
     border-radius: 20px;
     background: white;
@@ -33,10 +42,20 @@ section {
     max-width: 400px;
     height: 3rem;
     padding: 1rem;
+    font-weight: 500;
     
 }
+
+
 
 .description-product {
     height: 6rem;
 }
 
+.send-description-product {
+
+    background: black;
+    cursor: pointer;
+    color: white;
+    margin: 1rem 0;
+}

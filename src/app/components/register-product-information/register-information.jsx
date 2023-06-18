@@ -1,8 +1,10 @@
 'use client';
+import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import './style.css';
+import { useState } from 'react';
 
-export default function RegisterProductInfo() {
+export default function RegisterProductInfo({ sendInfo }) {
   const formik = useFormik({
     initialValues: {
       name_product: '',
@@ -12,7 +14,13 @@ export default function RegisterProductInfo() {
       gener_product: '',
     },
   });
-  console.log('form values', formik.values);
+
+  const validate = (values) => {};
+
+  const sendInfoToDataBase = (event) => {
+    event.preventDefault();
+    sendInfo(formik.values);
+  };
 
   return (
     <section className="form-info-poduct">
@@ -24,6 +32,7 @@ export default function RegisterProductInfo() {
           className="name-product"
           id="name-product"
           name="name_product"
+          placeholder="Camisa vermelha"
           onChange={formik.handleChange}
           value={formik.values.name_product}
         />
@@ -34,6 +43,7 @@ export default function RegisterProductInfo() {
           className="price-product"
           id="price-product"
           name="price_product"
+          placeholder="20,99"
           onChange={formik.handleChange}
           value={formik.values.price_product}
         />
@@ -45,6 +55,7 @@ export default function RegisterProductInfo() {
           className="description-product"
           rows="4"
           cols="50"
+          placeholder="descreva o produto"
           onChange={formik.handleChange}
           value={formik.values.description_product}
         ></textarea>
@@ -57,7 +68,9 @@ export default function RegisterProductInfo() {
           onChange={formik.handleChange}
           value={formik.values.category_product}
         >
-          <option value="select">Selecione a categoria</option>
+          <option value="" disabled selected hidden>
+            Selecione uma categoria
+          </option>
           <option value="blusas">Blusas</option>
           <option value="calcas">Calças</option>
           <option value="sapatos">Sapatos</option>
@@ -73,12 +86,24 @@ export default function RegisterProductInfo() {
           onChange={formik.handleChange}
           value={formik.values.gener_product}
         >
-          <option value="select">Selecione o gênero</option>
+          <option value="" disabled selected hidden>
+            Selecione o gênero
+          </option>{' '}
           <option value="Feminino">Feminino</option>
           <option value="Masculino">Masculino</option>
           <option value="Unissex">Unissex</option>
         </select>
+
+        <input
+          type="submit"
+          className="send-description-product"
+          onClick={validate(formik.values)}
+        />
       </form>
     </section>
   );
 }
+
+RegisterProductInfo.propTypes = {
+  sendInfo: PropTypes.func.isRequired,
+};
