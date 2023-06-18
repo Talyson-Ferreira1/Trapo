@@ -1,5 +1,6 @@
 import Header from './Header/Header';
 import styles from './page.module.css';
+import RegisterProduct from './pages/Register-Product/RegisterProduct';
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
         <button>Entrar</button>
       </div>
       <Header />
+      <RegisterProduct />
     </main>
   );
 }
