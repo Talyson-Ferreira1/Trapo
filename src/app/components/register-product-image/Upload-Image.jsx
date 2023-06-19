@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImages, faPlus } from '@fortawesome/free-solid-svg-icons';
 import './style.css';
 
-
 export default function UploadImage() {
   return (
     <section className="container-upload-image">
