@@ -33,6 +33,11 @@ section {
     border-radius: 10px;
     color: red;
     position: relative;
+    cursor: pointer;
+}
+
+.images-uploaded label:hover {
+    transform: scale(1.03);
 }
 
 .images-uploaded input {
