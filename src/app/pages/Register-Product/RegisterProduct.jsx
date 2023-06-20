@@ -11,6 +11,7 @@ import RegisterProductInfo from '@/app/components/register-product-information/r
 import './style.css';
 
 export default function Register() {
+  const [warningProductImage, setWarningProductImage] = useState(false);
   const [currentProduct, setCurrentroduct] = useState({
     product_information: '',
     product_images: '',
@@ -24,8 +25,20 @@ export default function Register() {
 
   const sendAllProductInformation = () => {
     let idProduct = generateProductId();
-
     let arrayCurrentProduct = Object.values(currentProduct);
+
+    if (arrayCurrentProduct[0] !== '' && arrayCurrentProduct[1] == '') {
+      let values = Object.values(arrayCurrentProduct[0]);
+
+      if (
+        !values.some((elemento) => elemento === '') &&
+        arrayCurrentProduct[1] === ''
+      ) {
+        setWarningProductImage(true);
+      } else if (arrayCurrentProduct[1] !== '') {
+        setWarningProductImage(false);
+      }
+    }
 
     if (!arrayCurrentProduct.some((elemento) => elemento === '')) {
       sendInformation(idProduct, currentProduct.product_information);
@@ -38,8 +51,6 @@ export default function Register() {
       ...prev,
       product_information: info,
     }));
-
-    console.log(info);
   };
 
   const getProductImage = (image) => {
@@ -47,8 +58,6 @@ export default function Register() {
       ...prev,
       product_images: image,
     }));
-
-    console.log(image);
   };
 
   const generateProductId = () => {
@@ -68,26 +77,26 @@ export default function Register() {
   const sendInformation = async (id, produto) => {
     console.log(id);
     console.log(produto);
-    /* 
+    let arrayProduct = Object.values(produto);
     try {
-      const data = produto.map((array) => ({ array }));
-      await setDoc(docRef, { Product: data });
+      const data = arrayProduct.map((array) => ({ array }));
+      await setDoc(docRef, { [id]: [...data] });
 
       console.log('Dados adicionados com sucesso!');
     } catch (error) {
       console.error('Erro ao adicionar dados:', error);
-    } */
+    }
   };
 
   const uploadImagesToStorage = async (id, images) => {
     console.log(id);
     console.log(images);
 
-    /*  try {
+    try {
       // Loop sobre as imagens fornecidas
       for (let i = 0; i < images.length; i++) {
         const image = images[i];
-        const storageRef = ref(storage, `images/${idProduct}`); // Gere um ID único para cada imagem
+        const storageRef = ref(storage, `images/${id}`); // Gere um ID único para cada imagem
 
         // Faz o upload da imagem para o Firebase Storage
         await uploadBytes(storageRef, image);
@@ -98,7 +107,7 @@ export default function Register() {
       console.log('Todas as imagens foram enviadas com sucesso!');
     } catch (error) {
       console.error('Erro ao enviar as imagens:', error);
-    } */
+    }
   };
 
   useEffect(() => {
@@ -107,7 +116,7 @@ export default function Register() {
 
   return (
     <main className="container-Register">
-      <UploadImage sendImage={getProductImage} />
+      <UploadImage sendImage={getProductImage} warning={warningProductImage} />
       <RegisterProductInfo sendInfo={getProductInformation} />
     </main>
   );

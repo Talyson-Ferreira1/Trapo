@@ -50,6 +50,7 @@ section {
     height: 200px;
     grid-column: span 3;
     grid-row: 1;
+    overflow: hidden;
 }
 
 .primary-input-label .container-icon-image-upload {
@@ -75,6 +76,7 @@ section {
 .images-uploaded .secondary-input-label {
     height: 100px;
     position: relative;
+    overflow: hidden;
 }
 
 .secondary-input-label .icon-image-plus {
@@ -83,4 +85,9 @@ section {
     opacity: 50%;
     position: absolute;
 
+}
+.imageload {
+    width:100%;
+    height: auto;
+    position: absolute;
 }

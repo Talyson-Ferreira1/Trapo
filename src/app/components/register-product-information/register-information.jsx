@@ -1,8 +1,8 @@
 'use client';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import './style.css';
-import { useEffect, useState } from 'react';
 
 export default function RegisterProductInfo({ sendInfo }) {
   const [errors, setErrors] = useState({});
@@ -91,6 +91,7 @@ export default function RegisterProductInfo({ sendInfo }) {
   return (
     <section className="form-info-poduct">
       <h2>Informações do produto</h2>
+
       <form onSubmit={handleSubmit}>
         <label htmlFor="name-product">Nome:</label>
         <input
@@ -143,7 +144,7 @@ export default function RegisterProductInfo({ sendInfo }) {
           onChange={formik.handleChange}
           value={formik.values.category_product}
         >
-          <option value="" disabled selected hidden>
+          <option value="" disabled defaultValue hidden>
             Selecione uma categoria
           </option>
           <option value="blusas">Blusas</option>
@@ -164,7 +165,7 @@ export default function RegisterProductInfo({ sendInfo }) {
           onChange={formik.handleChange}
           value={formik.values.gener_product}
         >
-          <option value="" disabled selected hidden>
+          <option value="" disabled defaultValue hidden>
             Selecione o gênero
           </option>{' '}
           <option value="Feminino">Feminino</option>
