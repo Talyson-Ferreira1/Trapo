@@ -87,7 +87,7 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
           onBlur={formik.handleBlur}
           value={formik.values.price_product}
         />
-        {(formik.touched.name_product && formik.errors.price_product) && (
+        {(formik.touched.price_product && formik.errors.price_product) && (
           <span className="warning">{formik.errors.price_product}</span>
         )}
 
@@ -103,7 +103,7 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
           onBlur={formik.handleBlur}
           value={formik.values.description_product}
         ></textarea>
-        {(formik.touched.name_product && formik.errors.description_product) && (
+        {(formik.touched.description_product && formik.errors.description_product) && (
           <span className="warning">{formik.errors.description_product}</span>
         )}
 
@@ -125,7 +125,7 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
           <option value="moletons">Moletons</option>
           <option value="chapeus">chapeis</option>
         </select>
-        {(formik.touched.name_product && formik.errors.category_product) && (
+        {(formik.touched.category_product && formik.errors.category_product) && (
           <span className="warning">{formik.errors.category_product}</span>
         )}
 
@@ -145,7 +145,7 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
           <option value="Masculino">Masculino</option>
           <option value="Unissex">Unissex</option>
         </select>
-        {(formik.touched.name_product && formik.errors.gener_product) && (
+        {(formik.touched.gener_product && formik.errors.gener_product) && (
           <span className="warning">{formik.errors.gener_product}</span>
         )}
 
