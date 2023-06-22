@@ -20,13 +20,9 @@ export default function Register() {
   const docRef = doc(SendProductCollection, 'AllProducts');
 
   const sendAllProductInformation = () => {
-    let idProduct = generateProductId();
-    let arrayCurrentProduct = Object.values(currentProduct);
 
-    if (!arrayCurrentProduct.some((elemento) => elemento === '')) {
-      sendInformation(idProduct, currentProduct.product_information);
-      uploadImagesToStorage(idProduct, currentProduct.product_images);
-    }
+    console.log("informações enviadas")
+  
   };
 
   const getProductInformation = (info) => {
@@ -35,6 +31,10 @@ export default function Register() {
       product_information: info,
     }));
   };
+
+  const getSubmitAction = (value) =>{
+    console.log("submit"+ value)
+  }
 
   const generateProductId = () => {
     const characters =
@@ -64,13 +64,11 @@ export default function Register() {
     }
   };
 
-  useEffect(() => {
-    sendAllProductInformation();
-  }, [currentProduct]);
+
 
   return (
     <main className="container-Register">
-      <RegisterProductInfo sendInfo={getProductInformation} />
+      <RegisterProductInfo sendInfo={getProductInformation} listenerSubmit={getSubmitAction}/>
     </main>
   );
 }

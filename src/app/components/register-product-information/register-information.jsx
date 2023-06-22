@@ -4,95 +4,63 @@ import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import './style.css';
 
-export default function RegisterProductInfo({ sendInfo }) {
+export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
   const [errors, setErrors] = useState({});
 
+  const initialValues = {
+    name_product: '',
+    price_product: '',
+    description_product: '',
+    category_product: '',
+    gener_product: '',
+  }
+
+  const onSubmit = values => {
+    console.log(values)
+  }
+
+  const validate = values => {
+    let errors = {}
+
+    if(!values.name_product){
+      errors.name_product = "Campo obrigatório"
+    }else if(values.name_product < 5){
+      errors.name_product = "O nome deve conter no mínimo 5 caracteres"
+
+    }
+
+    if(!values.price_product){
+      errors.price_product = "Campo obrigatório"
+    }
+
+    if(!values.description_product){
+      errors.description_product = "Campo obrigatório"
+    }
+
+    if(!values.category_product){
+      errors.category_product = "Campo obrigatório"
+    }
+
+    if(!values.gener_product){
+      errors.gener_product = "Campo obrigatório"
+    }
+
+    return errors;
+  }
+
   const formik = useFormik({
-    initialValues: {
-      name_product: '',
-      price_product: '',
-      description_product: '',
-      category_product: '',
-      gener_product: '',
-    },
+    initialValues,
+    onSubmit,
+    validate
   });
+  
 
-  const validate = (values) => {
-    setErrors({
-      name_product: '',
-      price_product: '',
-      description_product: '',
-      category_product: '',
-      gener_product: '',
-    });
-
-    if (values.name_product === '' || values.name_product.length < 5) {
-      setErrors((prev) => ({
-        ...prev,
-        name_product: 'Adicione no mínimo 5 caracteres',
-      }));
-    }
-
-    const priceRegex = /^\d+(\.\d{1,2})?$/;
-    if (!priceRegex.test(values.price_product)) {
-      setErrors((prev) => ({
-        ...prev,
-        price_product: 'Insira um valor numérico válido para o preço',
-      }));
-    }
-
-    if (values.description_product.length < 10) {
-      setErrors((prev) => ({
-        ...prev,
-        description_product: 'Adicione no mínimo 10 caracteres',
-      }));
-    }
-
-    if (values.category_product === '') {
-      setErrors((prev) => ({
-        ...prev,
-        category_product: 'Selecione uma categoria',
-      }));
-    }
-
-    if (values.gener_product === '') {
-      setErrors((prev) => ({
-        ...prev,
-        gener_product: 'Selecione um gênero',
-      }));
-    }
-  };
-
-  useEffect(() => {
-    const errorValues = Object.values(errors);
-    const hasError = errorValues.map(function (elemento) {
-      if (elemento == false) {
-        return false;
-      } else {
-        return true;
-      }
-    });
-
-    if (hasError.some((elemento) => elemento === true)) {
-      console.log('possui erros');
-    } else {
-      sendInfoToDataBase();
-    }
-  }, [errors]);
-
-  const sendInfoToDataBase = () => {
-    sendInfo(formik.values);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
 
   return (
     <section className="form-info-poduct">
       <h2>Informações do produto</h2>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={formik.handleSubmit}>
         <label htmlFor="name-product">Nome:</label>
         <input
           type="text"
@@ -101,10 +69,11 @@ export default function RegisterProductInfo({ sendInfo }) {
           name="name_product"
           placeholder="Camisa vermelha"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.name_product}
         />
-        {errors.name_product && (
-          <span className="warning">{errors.name_product}</span>
+        {(formik.touched.name_product && formik.errors.name_product) && (
+          <span className="warning">{formik.errors.name_product}</span>
         )}
 
         <label htmlFor="price-product">Preço:</label>
@@ -115,10 +84,11 @@ export default function RegisterProductInfo({ sendInfo }) {
           name="price_product"
           placeholder="20,99"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.price_product}
         />
-        {errors.price_product && (
-          <span className="warning">{errors.price_product}</span>
+        {(formik.touched.name_product && formik.errors.price_product) && (
+          <span className="warning">{formik.errors.price_product}</span>
         )}
 
         <label htmlFor="description-product">Descrição:</label>
@@ -130,10 +100,11 @@ export default function RegisterProductInfo({ sendInfo }) {
           cols="50"
           placeholder="descreva o produto"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.description_product}
         ></textarea>
-        {errors.description_product && (
-          <span className="warning">{errors.description_product}</span>
+        {(formik.touched.name_product && formik.errors.description_product) && (
+          <span className="warning">{formik.errors.description_product}</span>
         )}
 
         <label htmlFor="category-product">Categoria:</label>
@@ -142,6 +113,7 @@ export default function RegisterProductInfo({ sendInfo }) {
           id="category-product"
           name="category_product"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.category_product}
         >
           <option value="" disabled defaultValue hidden>
@@ -153,8 +125,8 @@ export default function RegisterProductInfo({ sendInfo }) {
           <option value="moletons">Moletons</option>
           <option value="chapeus">chapeis</option>
         </select>
-        {errors.category_product && (
-          <span className="warning">{errors.category_product}</span>
+        {(formik.touched.name_product && formik.errors.category_product) && (
+          <span className="warning">{formik.errors.category_product}</span>
         )}
 
         <label htmlFor="gener-product">Genero:</label>
@@ -163,6 +135,7 @@ export default function RegisterProductInfo({ sendInfo }) {
           id="gener-product"
           name="gener_product"
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.gener_product}
         >
           <option value="" disabled defaultValue hidden>
@@ -172,8 +145,8 @@ export default function RegisterProductInfo({ sendInfo }) {
           <option value="Masculino">Masculino</option>
           <option value="Unissex">Unissex</option>
         </select>
-        {errors.gener_product && (
-          <span className="warning">{errors.gener_product}</span>
+        {(formik.touched.name_product && formik.errors.gener_product) && (
+          <span className="warning">{formik.errors.gener_product}</span>
         )}
 
         <input
@@ -188,4 +161,5 @@ export default function RegisterProductInfo({ sendInfo }) {
 
 RegisterProductInfo.propTypes = {
   sendInfo: PropTypes.func.isRequired,
+  listenerSubmit: PropTypes.func.isRequired,
 };
