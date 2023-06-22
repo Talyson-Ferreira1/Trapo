@@ -1,11 +1,10 @@
 'use client';
-import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import './style.css';
 
 export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
-  const [errors, setErrors] = useState({});
+
 
   const initialValues = {
     name_product: '',
@@ -21,16 +20,20 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
 
   const validate = values => {
     let errors = {}
+    const regex = /^\d+(?:[\.,]\d{1,2})?$/gm;
 
     if(!values.name_product){
       errors.name_product = "Campo obrigatório"
-    }else if(values.name_product < 5){
+      
+    }else if(values.name_product.length < 5){
       errors.name_product = "O nome deve conter no mínimo 5 caracteres"
 
     }
 
     if(!values.price_product){
       errors.price_product = "Campo obrigatório"
+    }else if(!regex.test(values.price_product)){
+      errors.price_product = "Insira um valor numérico válido"
     }
 
     if(!values.description_product){
@@ -78,14 +81,17 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
 
         <label htmlFor="price-product">Preço:</label>
         <input
-          type="text"
+          type="number"
+          step="0.01"
+          min="0"
           className="price-product"
           id="price-product"
           name="price_product"
-          placeholder="20,99"
+          placeholder="109,99"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.price_product}
+          pattern="[0-9]*"
         />
         {(formik.touched.price_product && formik.errors.price_product) && (
           <span className="warning">{formik.errors.price_product}</span>
