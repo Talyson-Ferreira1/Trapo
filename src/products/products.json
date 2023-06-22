@@ -1,0 +1,23 @@
+{
+  "produtos": [
+    {
+      "nome": "Blusa Stay green",
+      "categoria": "Blusas",
+      "tamanho": "M",
+      "preco": 49.99,
+      "quantidadeSalvas": 10,
+      "cor": "verde",
+      "genero": "Masculino"
+    },
+    {
+      "nome": "Blusa portland",
+      "categoria": "Blusas",
+      "tamanho": "M",
+      "preco": 25.00,
+      "quantidadeSalvas": 5,
+      "cor": "verde branco vermelho",
+      "genero": "Masculino"
+    }
+]
+  
+}

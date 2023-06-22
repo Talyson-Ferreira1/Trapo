@@ -5,7 +5,7 @@ import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 export default function Header() {
   return (
-    <header>
+    <nav>
       <ul>
         <li>Feminino</li>
         <li>Masculino</li>
@@ -18,6 +18,6 @@ export default function Header() {
       <button className="icon-car-shopping">
         <FontAwesomeIcon className="icone" icon={faCartShopping} />
       </button>
-    </header>
+    </nav>
   );
 }
