@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import './style.css';
 
-export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
+export default function RegisterProductInfo({ sendInfo }) {
 
 
   const initialValues = {
@@ -15,7 +15,7 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
   }
 
   const onSubmit = values => {
-    console.log(values)
+    sendInfo(values)
   }
 
   const validate = values => {
@@ -38,6 +38,10 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
 
     if(!values.description_product){
       errors.description_product = "Campo obrigatório"
+    }else if(values.description_product.length < 10 ){
+      errors.description_product = "Insira no minimo 10 caracteres"
+    }else if(values.description_product.length > 100 ){
+      errors.description_product = "Insira no minimo 100 caracteres"
     }
 
     if(!values.category_product){
@@ -71,9 +75,8 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
           id="name-product"
           name="name_product"
           placeholder="Camisa vermelha"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.name_product}
+          {...formik.getFieldProps('name_product')}
+     
         />
         {(formik.touched.name_product && formik.errors.name_product) && (
           <span className="warning">{formik.errors.name_product}</span>
@@ -88,9 +91,7 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
           id="price-product"
           name="price_product"
           placeholder="109,99"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.price_product}
+          {...formik.getFieldProps('price_product')}
           pattern="[0-9]*"
         />
         {(formik.touched.price_product && formik.errors.price_product) && (
@@ -105,9 +106,7 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
           rows="4"
           cols="50"
           placeholder="descreva o produto"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.description_product}
+          {...formik.getFieldProps('description_product')}
         ></textarea>
         {(formik.touched.description_product && formik.errors.description_product) && (
           <span className="warning">{formik.errors.description_product}</span>
@@ -118,9 +117,7 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
           className="category-product"
           id="category-product"
           name="category_product"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.category_product}
+          {...formik.getFieldProps('category_product')}
         >
           <option value="" disabled defaultValue hidden>
             Selecione uma categoria
@@ -140,9 +137,7 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
           className="gener-product"
           id="gener-product"
           name="gener_product"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.gener_product}
+          {...formik.getFieldProps('gener_product')}
         >
           <option value="" disabled defaultValue hidden>
             Selecione o gênero
@@ -158,7 +153,6 @@ export default function RegisterProductInfo({ sendInfo, listenerSubmit }) {
         <input
           type="submit"
           className="send-description-product"
-          onClick={() => validate(formik.values)}
         />
       </form>
     </section>

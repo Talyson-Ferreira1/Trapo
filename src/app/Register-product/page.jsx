@@ -25,16 +25,10 @@ export default function Register() {
   
   };
 
-  const getProductInformation = (info) => {
-    setCurrentroduct((prev) => ({
-      ...prev,
-      product_information: info,
-    }));
+  const getProductInformation = (info) => {  
+    const id = generateProductId();
+    sendInformation(id, info)
   };
-
-  const getSubmitAction = (value) =>{
-    console.log("submit"+ value)
-  }
 
   const generateProductId = () => {
     const characters =
@@ -68,7 +62,7 @@ export default function Register() {
 
   return (
     <main className="container-Register">
-      <RegisterProductInfo sendInfo={getProductInformation} listenerSubmit={getSubmitAction}/>
+      <RegisterProductInfo sendInfo={getProductInformation} />
     </main>
   );
 }
