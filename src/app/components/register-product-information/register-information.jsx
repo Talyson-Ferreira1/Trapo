@@ -152,7 +152,7 @@ export default function RegisterProductInfo({ sendInfo }) {
 
         <input
           type="submit"
-          className="send-description-product"
+          className="send-information-product"
         />
       </form>
     </section>
@@ -160,6 +160,5 @@ export default function RegisterProductInfo({ sendInfo }) {
 }
 
 RegisterProductInfo.propTypes = {
-  sendInfo: PropTypes.func.isRequired,
-  listenerSubmit: PropTypes.func.isRequired,
+  sendInfo: PropTypes.func.isRequired
 };

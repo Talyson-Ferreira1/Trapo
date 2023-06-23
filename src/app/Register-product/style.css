@@ -1,0 +1,7 @@
+.container-Register {
+    width: 100%;
+    height: 600px;
+    display: grid;
+    grid-template-columns: 60% 50%;
+    grid-template-rows: 100%;
+}
