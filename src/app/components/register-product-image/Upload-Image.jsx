@@ -46,7 +46,7 @@ export default function UploadImage({ submit, sendImage }) {
   const renderImagePreview = (fieldName) => {
     const imagePreview = images[fieldName];
     if (imagePreview) {
-      return <img src={imagePreview} alt="Preview" />;
+      return <img className="image-preview" src={imagePreview} alt="Preview" />;
     }
     return null;
   };

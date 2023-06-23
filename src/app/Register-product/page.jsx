@@ -157,7 +157,7 @@ export default function Register() {
   }, [currentProduct]);
 
   return (
-    <main className="container-Register">
+    <>
       {toastMessage && (
         <ToastContainer
           className="toast-position"
@@ -173,8 +173,13 @@ export default function Register() {
           theme="colored"
         />
       )}
-      <RegisterProductImage submit={submitImage} sendImage={getProductImage} />
-      <RegisterProductInfo sendInfo={getProductInformation} />
-    </main>
+      <main className="container-Register">
+        <RegisterProductImage
+          submit={submitImage}
+          sendImage={getProductImage}
+        />
+        <RegisterProductInfo sendInfo={getProductInformation} />
+      </main>
+    </>
   );
 }
