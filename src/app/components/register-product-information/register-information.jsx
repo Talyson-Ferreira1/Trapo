@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import './style.css';
+import { off } from 'process';
 
 export default function RegisterProductInfo({ sendInfo }) {
   //adicionar mais informações como tamanhos
@@ -12,6 +13,11 @@ export default function RegisterProductInfo({ sendInfo }) {
     description_product: '',
     category_product: '',
     gener_product: '',
+    checkbox_value_1: [], 
+    checkbox_value_2: [], 
+    checkbox_value_3: [], 
+    checkbox_value_4: [], 
+
   };
 
   const onSubmit = (values) => {
@@ -58,6 +64,8 @@ export default function RegisterProductInfo({ sendInfo }) {
     onSubmit,
     validate,
   });
+  
+  console.log(formik.values)
 
   return (
     <section className="form-info-poduct">
@@ -107,6 +115,54 @@ export default function RegisterProductInfo({ sendInfo }) {
           formik.errors.description_product && (
             <span className="warning">{formik.errors.description_product}</span>
           )}
+
+        <div className='container-checkbox'>
+
+
+          <label className="label-checkbox" htmlFor="checkbox_value_1">
+            P(S)
+            <input
+              className="checkbox"
+              type="checkbox"
+              name="checkbox_value_1"
+              onChange={formik.handleChange}
+            />
+          </label>
+
+
+
+          <label className='label-checkbox' htmlFor="checkbox_value_2">
+            <input
+              className='checkbox'
+              type="checkbox"
+              name="checkbox_value_2"
+              onChange={formik.handleChange}
+              />
+            M(M)
+          </label>
+
+
+          <label className='label-checkbox' htmlFor="checkbox_value_3">
+            <input
+              className='checkbox check-3'
+              type="checkbox"
+              name="checkbox_value_3"
+              onChange={formik.handleChange}
+              />
+            G(L)
+          </label>
+
+          <label className='label-checkbox' htmlFor="checkbox_value_4">
+            <input
+              className='checkbox'
+              type="checkbox"
+              name="checkbox_value_4"
+              onChange={formik.handleChange}
+              />
+            GG(XL)
+          </label>
+
+        </div>
 
         <label htmlFor="category-product">Categoria:</label>
         <select
