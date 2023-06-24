@@ -1,11 +1,11 @@
-'use client';
+'use client'
 import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import './style.css';
 import { off } from 'process';
 
 export default function RegisterProductInfo({ sendInfo }) {
-  //adicionar mais informações como tamanhos
+  // adicionar mais informações como tamanhos
 
   const initialValues = {
     name_product: '',
@@ -13,11 +13,10 @@ export default function RegisterProductInfo({ sendInfo }) {
     description_product: '',
     category_product: '',
     gener_product: '',
-    checkbox_value_1: [], 
-    checkbox_value_2: [], 
-    checkbox_value_3: [], 
-    checkbox_value_4: [], 
-
+    checkbox_value_1: [],
+    checkbox_value_2: [],
+    checkbox_value_3: [],
+    checkbox_value_4: [],
   };
 
   const onSubmit = (values) => {
@@ -26,34 +25,60 @@ export default function RegisterProductInfo({ sendInfo }) {
 
   const validate = (values) => {
     let errors = {};
+
     const regex = /^\d+(?:[\.,]\d{1,2})?$/gm;
 
+    
+    const arrayCheckbox = [
+      values.checkbox_value_1,
+      values.checkbox_value_2,
+      values.checkbox_value_3,
+      values.checkbox_value_4,
+    ]
+    
+    const allAreEmpty = arrayCheckbox.every(value => Array.isArray(value) && value.length === 0);
+
+    
     if (!values.name_product) {
       errors.name_product = 'Campo obrigatório';
+
     } else if (values.name_product.length < 5) {
       errors.name_product = 'O nome deve conter no mínimo 5 caracteres';
+
     }
 
     if (!values.price_product) {
       errors.price_product = 'Campo obrigatório';
+
     } else if (!regex.test(values.price_product)) {
       errors.price_product = 'Insira um valor numérico válido';
+
     }
 
     if (!values.description_product) {
       errors.description_product = 'Campo obrigatório';
+
     } else if (values.description_product.length < 10) {
-      errors.description_product = 'Insira no minimo 10 caracteres';
+      errors.description_product = 'Insira no mínimo 10 caracteres';
+
     } else if (values.description_product.length > 100) {
-      errors.description_product = 'Insira no minimo 100 caracteres';
+      errors.description_product = 'Insira no máximo 100 caracteres';
+      
+    }
+    
+    if(allAreEmpty){
+      errors.size_product = 'Selecione no mínimo um tamanho';
+
     }
 
     if (!values.category_product) {
       errors.category_product = 'Campo obrigatório';
+
     }
 
     if (!values.gener_product) {
       errors.gener_product = 'Campo obrigatório';
+
     }
 
     return errors;
@@ -64,8 +89,22 @@ export default function RegisterProductInfo({ sendInfo }) {
     onSubmit,
     validate,
   });
-  
-  console.log(formik.values)
+
+  const handleCheckboxChange = (fieldName, e) => {
+    const isChecked = e.target.checked;
+    const checkboxValues = [...formik.values[fieldName]];
+
+    if (isChecked) {
+      checkboxValues.push(e.target.value);
+    } else {
+      const index = checkboxValues.indexOf(e.target.value);
+      if (index > -1) {
+        checkboxValues.splice(index, 1);
+      }
+    }
+
+    formik.setFieldValue(fieldName, checkboxValues);
+  };
 
   return (
     <section className="form-info-poduct">
@@ -116,53 +155,55 @@ export default function RegisterProductInfo({ sendInfo }) {
             <span className="warning">{formik.errors.description_product}</span>
           )}
 
-        <div className='container-checkbox'>
-
-
-          <label className="label-checkbox" htmlFor="checkbox_value_1">
+        <div className="container-checkbox">
+          <label className={`label-checkbox${formik.values.checkbox_value_1.includes('P(S)') ? ' checked' : ''}`} htmlFor="checkbox_value_1">
             P(S)
             <input
               className="checkbox"
               type="checkbox"
               name="checkbox_value_1"
-              onChange={formik.handleChange}
+              value="P(S)"
+              onChange={(e) => handleCheckboxChange('checkbox_value_1', e)}
             />
           </label>
 
-
-
-          <label className='label-checkbox' htmlFor="checkbox_value_2">
+          <label className={`label-checkbox${formik.values.checkbox_value_2.includes('M(M)') ? ' checked' : ''}`} htmlFor="checkbox_value_2">
             <input
-              className='checkbox'
+              className="checkbox"
               type="checkbox"
               name="checkbox_value_2"
-              onChange={formik.handleChange}
-              />
+              value="M(M)"
+              onChange={(e) => handleCheckboxChange('checkbox_value_2', e)}
+            />
             M(M)
           </label>
 
-
-          <label className='label-checkbox' htmlFor="checkbox_value_3">
+          <label className={`label-checkbox${formik.values.checkbox_value_3.includes('G(L)') ? ' checked' : ''}`} htmlFor="checkbox_value_3">
             <input
-              className='checkbox check-3'
+              className="checkbox check-3"
               type="checkbox"
               name="checkbox_value_3"
-              onChange={formik.handleChange}
-              />
+              value="G(L)"
+              onChange={(e) => handleCheckboxChange('checkbox_value_3', e)}
+            />
             G(L)
           </label>
 
-          <label className='label-checkbox' htmlFor="checkbox_value_4">
+          <label className={`label-checkbox${formik.values.checkbox_value_4.includes('GG(XL)') ? ' checked' : ''}`} htmlFor="checkbox_value_4">
             <input
-              className='checkbox'
+              className="checkbox"
               type="checkbox"
               name="checkbox_value_4"
-              onChange={formik.handleChange}
-              />
+              value="GG(XL)"
+              onChange={(e) => handleCheckboxChange('checkbox_value_4', e)}
+            />
             GG(XL)
           </label>
-
         </div>
+        {formik.errors.size_product && (
+            <span className="warning">{formik.errors.size_product}</span>
+          )}
+
 
         <label htmlFor="category-product">Categoria:</label>
         <select
@@ -184,7 +225,7 @@ export default function RegisterProductInfo({ sendInfo }) {
           <span className="warning">{formik.errors.category_product}</span>
         )}
 
-        <label htmlFor="gener-product">Genero:</label>
+        <label htmlFor="gener-product">Gênero:</label>
         <select
           className="gener-product"
           id="gener-product"
@@ -193,7 +234,7 @@ export default function RegisterProductInfo({ sendInfo }) {
         >
           <option value="" disabled defaultValue hidden>
             Selecione o gênero
-          </option>{' '}
+          </option>
           <option value="Feminino">Feminino</option>
           <option value="Masculino">Masculino</option>
           <option value="Unissex">Unissex</option>

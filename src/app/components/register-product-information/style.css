@@ -82,9 +82,12 @@
     cursor:pointer;
 } 
 
-.checkbox:checked + .label-checkbox {
-    border: 1px solid black;
-}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+.label-checkbox.checked {
+  
+    background: #e8e8e8;
+    box-shadow: 3px 3px 5px #050505,
+                -3px -3px 5px #ffffff;
+}
 
 .label-checkbox {
     position: relative;
@@ -92,5 +95,7 @@
     padding: .3rem !important;
     border-radius: 10px;
     margin:1rem 0.5rem;
+    box-shadow: 3px 3px 5px #c5c5c5,
+                -3px -3px 5px #ffffff;
     
 }
