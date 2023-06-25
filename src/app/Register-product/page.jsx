@@ -10,9 +10,10 @@ import {
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { appFirebase } from '@/services/firebase';
 import { ToastContainer, toast } from 'react-toastify';
+import { Formik } from 'formik';
 
-import RegisterProductInfo from '../components/register-product-information/register-information';
-import RegisterProductImage from '../components/register-product-image/Upload-Image';
+import RegisterProductInfo from '../components/Register-product-components/Product-Information/Product-Information';
+import RegisterProductImage from '../components/Register-product-components/Product-Images/Upload-images';
 
 import 'react-toastify/dist/ReactToastify.css';
 import './style.css';
@@ -31,22 +32,6 @@ export default function Register() {
   const SendProductCollection = collection(db, 'Product');
   const docRef = doc(SendProductCollection, 'AllProducts');
 
-  const getProductInformation = (info) => {
-    setCurrentProduct((prev) => ({
-      ...prev,
-      productInformation: info,
-    }));
-
-    setSubmitImage(true);
-  };
-
-  const getProductImage = (images) => {
-    setCurrentProduct((prev) => ({
-      ...prev,
-      productImages: images,
-    }));
-  };
-
   const generateProductId = () => {
     const characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -62,7 +47,6 @@ export default function Register() {
   };
 
   const sendInformation = async (id, produto) => {
-    setToastMessage(true);
 
     try {
       const docSnapshot = await getDoc(docRef);
@@ -122,6 +106,7 @@ export default function Register() {
     }
   };
 
+
   toast.success({
     position: 'top-right',
     autoClose: 2000,
@@ -144,42 +129,59 @@ export default function Register() {
     theme: 'colored',
   });
 
-  useEffect(() => {
-    if (
-      currentProduct.productInformation !== '' &&
-      currentProduct.productImages !== ''
-    ) {
-      const id = generateProductId();
+  const initialValues = {
+    image_1: null,
+    image_2: null,
+    image_3: null,
+    image_4: null,
+  };
 
-      sendInformation(id, currentProduct.productInformation);
-      sendImages(id, currentProduct.productImages);
+  const validate = (values) => {
+    let errors = {}
+
+    if(values.image_1 && values.image_2 && values.image_3 && values.image_4 === null ){
+      errors.image = "Adicione no mínimo uma imagem"
     }
-  }, [currentProduct]);
+
+    return errors
+  }
+
+  const onSubmit = (values) => {
+    console.log(values);
+  };
 
   return (
-    <>
-      {toastMessage && (
-        <ToastContainer
-          className="toast-position"
-          position="top-right"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-        />
+    <Formik
+      initialValues={initialValues}
+      validate={validate}
+      onSubmit={onSubmit}
+    >
+     
+      {formikProps => (
+
+        <form onSubmit={formikProps.handleSubmit}>
+           {toastMessage && (
+              <ToastContainer
+                className="toast-position"
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+              />
+            )}
+          <RegisterProductImage formikProps={formikProps}/>
+          <RegisterProductInfo  />
+          {console.log(formikProps.values)}
+
+          <input style={{position:'absolute'}} type="submit" />
+        </form>
       )}
-      <main className="container-Register">
-        <RegisterProductImage
-          submit={submitImage}
-          sendImage={getProductImage}
-        />
-        <RegisterProductInfo sendInfo={getProductInformation} />
-      </main>
-    </>
+    </Formik>
   );
 }

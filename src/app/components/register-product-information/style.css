@@ -65,12 +65,14 @@
     font-size: .6rem;
     display: flex;
 }
+
 .container-checkbox {
     display: flex;
     align-items: center;
     width: 5rem;
 
 }
+
 .checkbox {
     width: 100%;
     height: 100%;

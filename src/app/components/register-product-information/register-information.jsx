@@ -5,7 +5,6 @@ import './style.css';
 import { off } from 'process';
 
 export default function RegisterProductInfo({ sendInfo }) {
-  // adicionar mais informações como tamanhos
 
   const initialValues = {
     name_product: '',

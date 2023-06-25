@@ -14,6 +14,13 @@
     sans-serif;
   --font-bold: 'Poppins',
     sans-serif;
+
+  /* ------------ size ------------ */
+  --small-size-font:.8rem;
+  --medium-size-font:1rem;
+  --large-size-font: 2 rem;
+  --x-large-size-font: 4rem
+
 }
 
 * {
