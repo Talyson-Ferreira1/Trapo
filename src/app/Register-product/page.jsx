@@ -32,7 +32,7 @@ export default function Register() {
   const SendProductCollection = collection(db, 'Product');
   const docRef = doc(SendProductCollection, 'AllProducts');
 
-  const generateProductId = () => {
+/*   const generateProductId = () => {
     const characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const idLength = 20;
@@ -105,7 +105,7 @@ export default function Register() {
       console.error('Erro ao enviar as imagens:', error);
     }
   };
-
+ */
 
   toast.success({
     position: 'top-right',
@@ -139,8 +139,8 @@ export default function Register() {
   const validate = (values) => {
     let errors = {}
 
-    if(values.image_1 && values.image_2 && values.image_3 && values.image_4 === null ){
-      errors.image = "Adicione no mínimo uma imagem"
+    if(values.image_1 === null && values.image_2 === null && values.image_3 === null && values.image_4 === null ){
+      errors.images = "Deve haver no mínimo uma imagem"
     }
 
     return errors
@@ -175,10 +175,8 @@ export default function Register() {
                 theme="colored"
               />
             )}
-          <RegisterProductImage formikProps={formikProps}/>
-          <RegisterProductInfo  />
-          {console.log(formikProps.values)}
-
+          <RegisterProductImage formikProps={formikProps} />
+          <RegisterProductInfo formikProps={formikProps} />
           <input style={{position:'absolute'}} type="submit" />
         </form>
       )}
