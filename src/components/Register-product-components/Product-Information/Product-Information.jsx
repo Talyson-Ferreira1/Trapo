@@ -1,6 +1,14 @@
+import { useEffect, useState } from 'react';
 import './style.css';
 
-export default function RegisterInfo({ formikProps }) {
+export default function RegisterInfo({ formikProps, finishLoading }) {
+
+  const [isLoading, setIsLoading ] = useState(false)
+
+  const showLoadingButton = () => {
+    setIsLoading(true)
+  }
+
   const handleCheckboxChange = (fieldName, e) => {
     const isChecked = e.target.checked;
     const checkboxValues = [...formikProps.values[fieldName]];
@@ -16,6 +24,12 @@ export default function RegisterInfo({ formikProps }) {
 
     formikProps.setFieldValue(fieldName, checkboxValues);
   };
+
+  useEffect(()=>{
+    if(finishLoading){
+      setIsLoading(false)
+    }
+  },[finishLoading,isLoading])
 
   return (
     <fieldset className="fieldset-info">
@@ -138,16 +152,23 @@ export default function RegisterInfo({ formikProps }) {
           />
         </label>
       </div>
-      {formikProps.errors.product_size && (
+      {(
+        (formikProps.errors.product_size && formikProps.touched.checkbox_value_1) ||
+        (formikProps.errors.product_size && formikProps.touched.checkbox_value_2) ||
+        (formikProps.errors.product_size && formikProps.touched.checkbox_value_3) ||
+        (formikProps.errors.product_size && formikProps.touched.checkbox_value_4)
+      ) && (
         <span className="warning">{formikProps.errors.product_size}</span>
       )}
 
+
       <label htmlFor="product_category">Categoria</label>
       <select
-        className="product_category"
         name="product_category"
+        className="product_category"
         {...formikProps.getFieldProps('product_category')}
       >
+        <option disabled value=""> Selecione uma categoria</option>
         <option value="blusas"> Blusas </option>
         <option value="calças"> Calças </option>
         <option value="sapatos"> Sapatos </option>
@@ -161,10 +182,11 @@ export default function RegisterInfo({ formikProps }) {
 
       <label htmlFor="product_gener">Genero</label>
       <select
-        className="product_gener"
         name="product_gener"
+        className="product_gener"
         {...formikProps.getFieldProps('product_gener')}
       >
+        <option disabled value="" > Selecione o gênero</option>
         <option value="masculino"> Masculino </option>
         <option value="feminino"> Feminino </option>
         <option value="unissex"> Unissex </option>
@@ -173,8 +195,23 @@ export default function RegisterInfo({ formikProps }) {
         formikProps.errors.product_gener && (
           <span className="warning">{formikProps.errors.product_gener}</span>
         )}
-
-      <input type="submit" placeholder="Cadastrar" className="form_submit" />
+        <button   
+          type="submit" 
+          placeholder="Cadastrar" 
+          className="form_submit"
+          onClick={showLoadingButton}
+        >
+          {isLoading ? 
+            <div className="loader">
+              <span className="bar"></span>
+              <span className="bar"></span>
+              <span className="bar"></span>
+            </div>
+          :
+            'Enviar'
+          
+          }
+        </button>
     </fieldset>
   );
 }

@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
 import './globals.css';
 import { Inter } from 'next/font/google';
-import Header from './components/Header/Header';
-import Navbar from './components/NavBar/Navbar';
+import Header from '../components/Header/Header';
+import Navbar from '../components/NavBar/Navbar';
 
 const inter = Inter({ subsets: ['latin'] });
 

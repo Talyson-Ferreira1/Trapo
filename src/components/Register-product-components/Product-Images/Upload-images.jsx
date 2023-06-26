@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImages, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import './style.css';
 
-export default function UploadImages({ formikProps }) {
+export default function UploadImages({ formikProps, reset }) {
   const [imageFiles, setImageFiles] = useState({});
 
   const handleImageChange = (fieldName, file) => {
@@ -20,13 +20,20 @@ export default function UploadImages({ formikProps }) {
     if (file) {
       const imagePreview = URL.createObjectURL(file);
       return (
-        <div className="container-image-preview">
+        <div className="contaimagner-image-preview">
           <img className="image-preview" src={imagePreview} alt="Preview" />
         </div>
       );
     }
     return null;
   };
+
+  useEffect(() => {
+    if (reset) {
+      setImageFiles({})
+      
+    }
+  }, [reset]);
 
   return (
     <fieldset className="fieldset-image">
