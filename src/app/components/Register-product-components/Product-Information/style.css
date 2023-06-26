@@ -2,29 +2,44 @@
     display:flex;
     flex-direction: column;
     border: none;
-    padding: 0 2rem;
+    padding: 0 2rem 1rem 3rem;
+    overflow-y: scroll;
+
+}
+.fieldset-info::-webkit-scrollbar {
+    width: 4px;
+    border: none;
+    background: transparent;
+}
+
+.fieldset-info::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 50px;
 }
 
 .fieldset-info legend {
     font-size: var(--medium-size-font);
     padding: 1rem;
+    font-weight: 700;
 }
 
 .fieldset-info label {
     padding: .5rem 0;
     font-size: var(--small-size-font);
+    font-weight: 500;
 } 
 
 .fieldset-info .product_name,
 .fieldset-info .product_price,
 .fieldset-info .product_description,
 .fieldset-info .product_category,
-.fieldset-info .product_gener {
+.fieldset-info .product_gener,
+.fieldset-info .form_submit {
     position: relative;
     outline: none;
     border-radius: 20px;
     background: white;
-    border: 1px solid var(--gray-scale-2);
+    border :none;
     width: 80%;
     max-width: 400px;
     height: 3rem;
@@ -34,31 +49,56 @@
 }
 
 .fieldset-info .product_description {
-    height: 6rem;
+    min-height:  6rem;
+}
+
+.fieldset-info .form_submit {
+    margin: 1rem 0;
+    background: black;
+    color: white;
+    cursor: pointer;
 }
 
 .fieldset-info .product_size {
     display: flex;
     align-items: center;
-    width: 4rem;
+    height:3rem;
 }
 
-.fieldset-info .product_size .label-checkbox {
-    width: 100%;
-    height: 100%;
+.product_size .label-checkbox {
+    width: 3rem;
+    height: 2.5rem;
     border-radius: 10px;
+    padding: .5rem;
     margin: 0 1rem ;
-    box-shadow: 3px 3px 5px #c5c5c5,
-    -3px -3px 5px #ffffff;
     position:relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.763);
+    box-shadow: 3px 3px 5px #cacaca2f,
+            -3px -3px 5px #ffffff39;
 
 }
 
-.fieldset-info .product_size .checkbox {
+.product_size .checkbox {
     width: 100%;
     height: 100%;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    opacity: 0;
+}
+
+.product_size .label-checkbox.checked {
+    background: var(--green-scale-1);
+    box-shadow: 3px 3px 5px #cacaca,
+        -3px -3px 5px #ffffff;
+}
+
+.fieldset-info .warning {
+    padding: .4rem;
+    color: red;
+    font-size: var(--Xsmall-size-font);
 }

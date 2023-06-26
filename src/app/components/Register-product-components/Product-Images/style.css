@@ -14,6 +14,7 @@
 .fieldset-image legend {
     padding: 1rem;
     font-size: var(--medium-size-font);
+    font-weight: 700;
 }
 
 .fieldset-image .warning-images {

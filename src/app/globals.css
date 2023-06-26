@@ -3,10 +3,12 @@
 :root {
 
   --cinza: #e8e8e8;
-  --gray-scale-1:#ebe9e9;
+  --gray-scale-1:#f5f5f5;
   --gray-scale-2:#c4c4c4;
   --background-button: #ebf9fa;
   --border-button: #47cad2;
+  --green-scale-1:#ebf9fa;
+  --green-scale-2:#47cad2;
 
   /* ------------ font ------------ */
 
@@ -16,9 +18,10 @@
     sans-serif;
 
   /* ------------ size ------------ */
+  --Xsmall-size-font:.7rem;
   --small-size-font:.8rem;
   --medium-size-font:1rem;
-  --large-size-font: 2 rem;
+  --large-size-font: 2rem;
   --x-large-size-font: 4rem
 
 }
