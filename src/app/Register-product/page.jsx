@@ -1,6 +1,12 @@
 'use client';
 import { useState } from 'react';
-import { getFirestore, collection, setDoc, doc,getDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  setDoc,
+  doc,
+  getDoc,
+} from 'firebase/firestore';
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { appFirebase } from '@/services/firebase';
 import { ToastContainer, toast } from 'react-toastify';
@@ -36,7 +42,7 @@ export default function Register() {
 
     return id;
   };
-  
+
   toast.success({
     position: 'top-right',
     autoClose: 2000,
@@ -134,34 +140,34 @@ export default function Register() {
 
   const onSubmit = async (values, { resetForm }) => {
     let id = generateProductId();
-    setToastMessage(true)
-  
+    setToastMessage(true);
+
     try {
       const storageRef = ref(storage, `products/${id}`);
       const uploadPromises = [];
-  
+
       if (values.image_1 !== null) {
         const imageRef = ref(storageRef, `image_1`);
         uploadPromises.push(uploadBytes(imageRef, values.image_1));
       }
-  
+
       if (values.image_2 !== null) {
         const imageRef = ref(storageRef, `image_2`);
         uploadPromises.push(uploadBytes(imageRef, values.image_2));
       }
-  
+
       if (values.image_3 !== null) {
         const imageRef = ref(storageRef, `image_3`);
         uploadPromises.push(uploadBytes(imageRef, values.image_3));
       }
-  
+
       if (values.image_4 !== null) {
         const imageRef = ref(storageRef, `image_4`);
         uploadPromises.push(uploadBytes(imageRef, values.image_4));
       }
-  
+
       await Promise.all(uploadPromises);
-  
+
       const product_information = {
         product_name: values.product_name,
         product_price: values.product_price,
@@ -171,34 +177,36 @@ export default function Register() {
         product_checkbox_value_1: values.checkbox_value_1,
         product_checkbox_value_2: values.checkbox_value_2,
         product_checkbox_value_3: values.checkbox_value_3,
-        product_checkbox_value_4: values.checkbox_value_4
+        product_checkbox_value_4: values.checkbox_value_4,
       };
-  
+
       const docSnapshot = await getDoc(docRef);
       const existingData = docSnapshot.exists() ? docSnapshot.data() : {};
-  
+
       const newData = {
         ...existingData,
         [id]: {
           ...product_information,
         },
       };
-  
+
       await setDoc(docRef, newData);
-  
+
       console.log('Produto cadastrado com sucesso!');
       toast.success('Produto cadastrado');
-  
+      setFinishedLoading(true);
       resetForm();
-      setFinishedLoading(true)
-      setTimeout(()=>{ setFinishedLoading(false) }, 3000) 
-
     } catch (error) {
       console.error('Erro ao cadastrar o produto:', error);
+      setFinishedLoading(true);
       toast.error('Erro ao cadastrar o produto');
     }
-  };
 
+    setTimeout(() => {
+      setToastMessage(false);
+      setFinishedLoading(false);
+    }, 3000);
+  };
 
   return (
     <Formik
@@ -206,7 +214,6 @@ export default function Register() {
       validate={validate}
       onSubmit={onSubmit}
     >
-    
       {(formikProps) => (
         <main>
           {toastMessage && (
@@ -227,8 +234,14 @@ export default function Register() {
 
           {/* a pasta componentes deve ficar dentro de src */}
           <form onSubmit={formikProps.handleSubmit}>
-            <RegisterProductImage formikProps={formikProps} reset={finishedLoading}/>
-            <RegisterProductInfo formikProps={formikProps} finishLoading={finishedLoading}/>
+            <RegisterProductImage
+              formikProps={formikProps}
+              reset={finishedLoading}
+            />
+            <RegisterProductInfo
+              formikProps={formikProps}
+              finishLoading={finishedLoading}
+            />
             <div className="backgorund-fieldset"></div>
           </form>
         </main>

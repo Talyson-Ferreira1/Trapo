@@ -1,34 +1,48 @@
 .fieldset-info {
-    display:flex;
-    flex-direction: column;
-    border: none;
-    padding: 0 2rem 1rem 3rem;
-    overflow-y: scroll;
+  display:flex;
+  flex-direction: column;
+  border: none;
+  padding: 0 2rem 1rem 3rem;
+  overflow-y: scroll;
 
 }
 
 .fieldset-info::-webkit-scrollbar {
-    width: .5rem;
-    border: none;
-    background: transparent;
+  width: .5rem;
+  border: none;
+  background: transparent;
 }
 
 .fieldset-info::-webkit-scrollbar-thumb {
-    background: black;
-    border-radius: 50px;
+  background: black;
+  border-radius: 50px;
 }
 
 .fieldset-info legend {
-    font-size: var(--medium-size-font);
-    padding: 1rem;
-    font-weight: 700;
+  font-size: var(--medium-size-font);
+  padding: 1rem;
+  font-weight: 700;
 }
 
 .fieldset-info label {
-    padding: .5rem 0;
-    font-size: var(--small-size-font);
-    font-weight: 500;
+  padding: .5rem 0;
+  font-size: var(--small-size-font);
+  font-weight: 500;
 } 
+
+.fieldset-info select {
+  margin-top: 1rem;
+  padding-right: 1rem;
+}
+
+.fieldset-info .product_name:focus,
+.fieldset-info .product_price:focus,
+.fieldset-info .product_description:focus,
+.fieldset-info .product_category:focus,
+.fieldset-info .product_gener:focus,
+.fieldset-info .form_submit:focus {
+  outline: 2px solid var(--gray-scale-2);
+}
 
 .fieldset-info .product_name,
 .fieldset-info .product_price,
@@ -36,76 +50,92 @@
 .fieldset-info .product_category,
 .fieldset-info .product_gener,
 .fieldset-info .form_submit {
-    position: relative;
-    outline: none;
-    border-radius: 20px;
-    background: white;
-    border :none;
-    width: 80%;
-    max-width: 400px;
-    height: 3rem;
-    padding: .5rem 1rem;
-    font-weight: 500;
-    
+  position: relative;
+  border-radius: 20px;
+  background: white;
+  border: 1px solid var(--gray-scale-2) ;
+  width: 80%;
+  min-width: 250px;
+  max-width: 400px;
+  height: 3rem;
+  padding: .5rem 1rem;
+  font-weight: 500;
+  cursor: pointer;
 }
 
 .fieldset-info .product_description {
-    min-height:  6rem;
+  min-height:  6rem;
 }
 
 .fieldset-info .form_submit {
-    margin: 1rem 0;
-    background: black;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin: 1rem 0;
+  background: black;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline-color: white;
 
 }
 
 .fieldset-info .product_size {
-    display: flex;
-    align-items: center;
-    height:3rem;
+  display: flex;
+  align-items: center;
+  height:3rem;
 }
 
 .product_size .label-checkbox {
-    width: 3rem;
-    height: 2.5rem;
-    border-radius: 10px;
-    padding: .5rem;
-    margin: 0 1rem ;
-    position:relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.763);
-    box-shadow: 3px 3px 5px #cacaca2f,
-            -3px -3px 5px #ffffff39;
+  width: 3rem;
+  height: 2.5rem;
+  font-size: .7rem;
+  border-radius: 10px;
+  padding: .5rem;
+  margin: 0 1rem ;
+  position:relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gray-scale-2);
+  background: rgba(255, 255, 255, 0.763);
+  box-shadow: 3px 3px 5px #cacaca2f,
+          -3px -3px 5px #ffffff39;
 
 }
 
 .product_size .checkbox {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.label-checkbox:focus{
+  outline: 2px solid var(--gray-scale-2);
+    
+}
+
+.checkbox:focus .label-checkbox {
+  background: var(--green-scale-1);
+  box-shadow: 3px 3px 5px #cacaca,
+    -3px -3px 5px #ffffff;
 }
 
 .product_size .label-checkbox.checked {
-    background: var(--green-scale-1);
-    box-shadow: 3px 3px 5px #cacaca,
-        -3px -3px 5px #ffffff;
+  background: var(--gray-scale-1);
+  box-shadow: 3px 3px 5px #cacaca,
+      -3px -3px 5px #ffffff;
+
 }
 
 .fieldset-info .warning {
-    padding: .4rem;
-    color: red;
-    font-size: var(--Xsmall-size-font);
+  padding: .4rem;
+  color: red;
+  font-size: var(--Xsmall-size-font);
 }
 
 .loader {
@@ -115,15 +145,15 @@
 
 .bar {
   display: inline-block;
-  width: 3px;
-  height: 15px;
+  width: 2px;
+  height: 10px;
   background-color: rgba(255, 255, 255, .5);
   border-radius: 10px;
   animation: scale-up4 1s linear infinite;
 }
 
 .bar:nth-child(2) {
-  height: 30px;
+  height: 20px;
   margin: 0 5px;
   animation-delay: .25s;
 }
@@ -142,3 +172,4 @@
     transform: scaleY(1);
   }
 }
+

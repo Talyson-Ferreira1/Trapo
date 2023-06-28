@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import './style.css';
 
 export default function RegisterInfo({ formikProps, finishLoading }) {
-
-  const [isLoading, setIsLoading ] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const showLoadingButton = () => {
-    setIsLoading(true)
-  }
+    setIsLoading(true);
+  };
 
   const handleCheckboxChange = (fieldName, e) => {
     const isChecked = e.target.checked;
@@ -25,11 +24,11 @@ export default function RegisterInfo({ formikProps, finishLoading }) {
     formikProps.setFieldValue(fieldName, checkboxValues);
   };
 
-  useEffect(()=>{
-    if(finishLoading){
-      setIsLoading(false)
+  useEffect(() => {
+    if (finishLoading) {
+      setIsLoading(false);
     }
-  },[finishLoading,isLoading])
+  }, [finishLoading, isLoading]);
 
   return (
     <fieldset className="fieldset-info">
@@ -37,6 +36,7 @@ export default function RegisterInfo({ formikProps, finishLoading }) {
       <label htmlFor="product_name"> Nome </label>
       <input
         type="text"
+        tabIndex={11}
         name="product_name"
         className="product_name"
         placeholder="Camisa estampada"
@@ -50,6 +50,7 @@ export default function RegisterInfo({ formikProps, finishLoading }) {
       <input
         min="0"
         step="0.01"
+        tabIndex={12}
         type="number"
         pattern="[0-9]*"
         name="1"
@@ -66,6 +67,7 @@ export default function RegisterInfo({ formikProps, finishLoading }) {
       <textarea
         rows="4"
         cols="50"
+        tabIndex={13}
         name="product_description"
         className="product_description"
         placeholder="Descreva o produto"
@@ -81,6 +83,7 @@ export default function RegisterInfo({ formikProps, finishLoading }) {
       <label htmlFor="product_size">Medidas disponíveis</label>
       <div className="product_size">
         <label
+          tabIndex={14}
           className={`label-checkbox${
             formikProps.values.checkbox_value_1.includes('P(S)')
               ? ' checked'
@@ -99,6 +102,7 @@ export default function RegisterInfo({ formikProps, finishLoading }) {
         </label>
 
         <label
+          tabIndex={15}
           className={`label-checkbox${
             formikProps.values.checkbox_value_2.includes('M(M)')
               ? ' checked'
@@ -117,6 +121,7 @@ export default function RegisterInfo({ formikProps, finishLoading }) {
         </label>
 
         <label
+          tabIndex={16}
           className={`label-checkbox${
             formikProps.values.checkbox_value_3.includes('G(L)')
               ? ' checked'
@@ -135,6 +140,7 @@ export default function RegisterInfo({ formikProps, finishLoading }) {
         </label>
 
         <label
+          tabIndex={17}
           className={`label-checkbox${
             formikProps.values.checkbox_value_4.includes('GG(XL)')
               ? ' checked'
@@ -152,27 +158,31 @@ export default function RegisterInfo({ formikProps, finishLoading }) {
           />
         </label>
       </div>
-      {(
-        (formikProps.errors.product_size && formikProps.touched.checkbox_value_1) ||
-        (formikProps.errors.product_size && formikProps.touched.checkbox_value_2) ||
-        (formikProps.errors.product_size && formikProps.touched.checkbox_value_3) ||
-        (formikProps.errors.product_size && formikProps.touched.checkbox_value_4)
-      ) && (
+      {((formikProps.errors.product_size &&
+        formikProps.touched.checkbox_value_1) ||
+        (formikProps.errors.product_size &&
+          formikProps.touched.checkbox_value_2) ||
+        (formikProps.errors.product_size &&
+          formikProps.touched.checkbox_value_3) ||
+        (formikProps.errors.product_size &&
+          formikProps.touched.checkbox_value_4)) && (
         <span className="warning">{formikProps.errors.product_size}</span>
       )}
 
-
-      <label htmlFor="product_category">Categoria</label>
       <select
+        tabIndex={18}
         name="product_category"
         className="product_category"
         {...formikProps.getFieldProps('product_category')}
       >
-        <option disabled value=""> Selecione uma categoria</option>
+        <option disabled value="">
+          {' '}
+          Categoria
+        </option>
         <option value="blusas"> Blusas </option>
         <option value="calças"> Calças </option>
         <option value="sapatos"> Sapatos </option>
-        <option value="moletoms"> Moletoms </option>
+        <option value="moletons"> Moletons </option>
         <option value="chapeus"> Chapeis </option>
       </select>
       {formikProps.touched.product_category &&
@@ -180,13 +190,16 @@ export default function RegisterInfo({ formikProps, finishLoading }) {
           <span className="warning">{formikProps.errors.product_category}</span>
         )}
 
-      <label htmlFor="product_gener">Genero</label>
       <select
+        tabIndex={19}
         name="product_gener"
         className="product_gener"
         {...formikProps.getFieldProps('product_gener')}
       >
-        <option disabled value="" > Selecione o gênero</option>
+        <option disabled value="">
+          {' '}
+          Gênero
+        </option>
         <option value="masculino"> Masculino </option>
         <option value="feminino"> Feminino </option>
         <option value="unissex"> Unissex </option>
@@ -195,23 +208,23 @@ export default function RegisterInfo({ formikProps, finishLoading }) {
         formikProps.errors.product_gener && (
           <span className="warning">{formikProps.errors.product_gener}</span>
         )}
-        <button   
-          type="submit" 
-          placeholder="Cadastrar" 
-          className="form_submit"
-          onClick={showLoadingButton}
-        >
-          {isLoading ? 
-            <div className="loader">
-              <span className="bar"></span>
-              <span className="bar"></span>
-              <span className="bar"></span>
-            </div>
-          :
-            'Enviar'
-          
-          }
-        </button>
+      <button
+        tabIndex={20}
+        type="submit"
+        placeholder="Cadastrar"
+        className="form_submit"
+        onClick={showLoadingButton}
+      >
+        {isLoading && formikProps.isValid ? (
+          <div className="loader">
+            <span className="bar"></span>
+            <span className="bar"></span>
+            <span className="bar"></span>
+          </div>
+        ) : (
+          'Enviar'
+        )}
+      </button>
     </fieldset>
   );
 }

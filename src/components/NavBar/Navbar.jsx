@@ -7,12 +7,12 @@ export default function Header() {
   return (
     <nav>
       <ul>
-        <li>Feminino</li>
-        <li>Masculino</li>
-        <li>Camisas</li>
-        <li>Calças</li>
-        <li>Moletom</li>
-        <li>Sapatos</li>
+        <li tabIndex={1}>Feminino</li>
+        <li tabIndex={2}>Masculino</li>
+        <li tabIndex={3}>Camisas</li>
+        <li tabIndex={4}>Calças</li>
+        <li tabIndex={5}>Moletom</li>
+        <li tabIndex={6}>Sapatos</li>
       </ul>
       <button className="finalize_purchase">Finalizar compra</button>
       <button className="icon-car-shopping">
