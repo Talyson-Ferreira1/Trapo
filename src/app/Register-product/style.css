@@ -43,22 +43,99 @@ form {
 
     /* ------------------ Component Register-Information ------------------ */
 
-    @media (max-width:800px) {
+ 
 
-        .fieldset-info {
-            padding: 1rem 1rem;
-        }
-
-        .fieldset-info .product_name,
-        .fieldset-info .product_price,
-        .fieldset-info .product_description,
-        .fieldset-info .product_category,
-        .fieldset-info .product_gener,
-        .fieldset-info .form_submit {
-            width: 100%;
-        }
-
+    .fieldset-info {
+        padding: 1rem 1rem;
     }
+
+    .fieldset-info .product_name,
+    .fieldset-info .product_price,
+    .fieldset-info .product_description,
+    .fieldset-info .product_category,
+    .fieldset-info .product_gener,
+    .fieldset-info .form_submit {
+        width: 100%;
+    }
+
+}
+
+@media (max-width:700px) {
+
+    main {
+        width: 100%;
+        height: 700px;
+    }
+
+    form {
+        grid-template-columns: 100%;
+        grid-template-rows: 55% 45%;
+    }
+
+    .backgorund-fieldset {
+        width: 100%;
+        height: 45%;
+        top: auto;
+        bottom: 0;
+    }
+
+    /* ------------------ Component Register-Information ------------------ */
+
+    .fieldset-info {
+        display: grid;
+        grid-row-gap: .5rem;
+        grid-column-gap: 1rem;
+        grid-template-areas:
+        "name description "
+        "price description "
+        "category sizes "
+        "gener sizes "
+        "button button ";
+        grid-template-columns: 50% 50%;
+        grid-template-rows: repeat(5, 1fr)
+    }
+
+    .fieldset-info .container-product-name {
+        grid-area: name;
+    }
+
+    .fieldset-info .container-product-price {
+        grid-area: price;
+    }
+
+    .fieldset-info .container-product-description {
+        grid-area: description;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr 3fr 1fr;
+    }
+
+    .fieldset-info .container-product-checkbox {
+        grid-area: sizes;
+    }
+
+    .fieldset-info .container-product-category {
+        grid-area: category;
+    }
+
+    .fieldset-info .container-product-gener {
+        grid-area: gener;
+    }
+
+    .fieldset-info button {
+        grid-area: button;
+    }
+
+    .fieldset-info .product_name,
+    .fieldset-info .product_price,
+    .fieldset-info .product_description,
+    .fieldset-info .product_category,
+    .fieldset-info .product_gener,
+    .fieldset-info .form_submit { 
+        min-width: 200px;
+    }
+
+    
 
 
 }

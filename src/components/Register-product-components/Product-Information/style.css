@@ -4,6 +4,7 @@
   border: none;
   padding: 0 2rem 1rem 3rem;
   overflow-y: scroll;
+  overflow-x: hidden;
 
 }
 
@@ -24,7 +25,13 @@
   font-weight: 700;
 }
 
+.fieldset-info .container-input {
+  display: flex;
+  flex-direction: column;
+}
+
 .fieldset-info label {
+  display: flex;
   padding: .5rem 0;
   font-size: var(--small-size-font);
   font-weight: 500;
