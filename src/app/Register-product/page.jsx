@@ -232,7 +232,6 @@ export default function Register() {
             />
           )}
 
-          {/* a pasta componentes deve ficar dentro de src */}
           <form onSubmit={formikProps.handleSubmit}>
             <RegisterProductImage
               formikProps={formikProps}

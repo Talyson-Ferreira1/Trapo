@@ -140,6 +140,7 @@
 }
 
 .fieldset-info .warning {
+  display: flex;
   padding: .4rem;
   color: red;
   font-size: var(--Xsmall-size-font);
