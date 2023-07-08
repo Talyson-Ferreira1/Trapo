@@ -20,7 +20,7 @@ form {
     width: 50%;
     height: 100%;
     display: flex;
-    background: var(--gray-scale-1);
+    background: var(--grayScale-1);
     top: 0;
     right: 0;
     position: absolute;

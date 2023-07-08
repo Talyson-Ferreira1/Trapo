@@ -11,6 +11,23 @@
   --green-scale-1:#ebf9fa;
   --green-scale-2:#47cad2;
 
+
+  --grayScale-1:#F5F5F5;
+  --grayScale-2:#E4E4E4;
+  --grayScale-3:#737373;
+
+  --greenScale-1:#EBF9FA;
+  --greenScale-2:#B9FAFF;
+  --greenScale-3:#16E2EF;
+  --greenScale-4:#47CAD2;
+
+  --fullBlack:#000000;
+  --mediumBlack:#00000075;
+
+  --fullWhite:#ffffff;
+  --mediumWhite:#ffffff75;
+
+
   /* ------------ font ------------ */
 
   --font-light: 'Red Hat Display',
@@ -19,7 +36,7 @@
     sans-serif;
 
   /* ------------ size ------------ */
-  --Xsmall-size-font:.7rem;
+  --x-small-size-font:.7rem;
   --small-size-font:.8rem;
   --medium-size-font:1rem;
   --large-size-font: 2rem;
