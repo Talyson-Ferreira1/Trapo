@@ -106,6 +106,44 @@ export default function Register() {
       checkbox3:[],
       checkbox4:[]
     },
+    product_Image: {
+      Images1: {
+        image_1: null,
+        image_2: null,
+        image_3: null,
+        image_4: null,
+      },
+      Images2: {
+        image_1: null,
+        image_2: null,
+        image_3: null,
+        image_4: null,
+      },
+      Images3: {
+        image_1: null,
+        image_2: null,
+        image_3: null,
+        image_4: null,
+      },
+      Images4: {
+        image_1: null,
+        image_2: null,
+        image_3: null,
+        image_4: null,
+      },
+      Images5: {
+        image_1: null,
+        image_2: null,
+        image_3: null,
+        image_4: null,
+      },
+      Images6: {
+        image_1: null,
+        image_2: null,
+        image_3: null,
+        image_4: null,
+      },
+    },
     
   };
 

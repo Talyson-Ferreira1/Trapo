@@ -6,6 +6,7 @@ export default function InputPriceProduct({formikProps}){
         <input
           min="0"
           step="0.01"
+          tabIndex={12}
           type="number"
           pattern="[0-9]*"
           name="product_price"

@@ -6,6 +6,7 @@ export default function InputDescriptionProduct({formikProps}){
             <textarea
             rows="4"
             cols="50"
+            tabIndex={15}
             name="product_description"
             className="product_description"
             placeholder="ex: Produto importado de material resistente"

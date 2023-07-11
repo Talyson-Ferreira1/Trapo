@@ -28,6 +28,7 @@ export default function SelectSizeNumberProduct({formikProps}){
                   ? ' checked'
                   : ''
               }`}
+              tabIndex={16}
               htmlFor="checkbox1"
             >
               35
@@ -46,6 +47,7 @@ export default function SelectSizeNumberProduct({formikProps}){
                   ? ' checked'
                   : ''
               }`}
+              tabIndex={17}
               htmlFor="checkbox2"
             >
               36
@@ -64,6 +66,7 @@ export default function SelectSizeNumberProduct({formikProps}){
                   ? ' checked'
                   : ''
               }`}
+              tabIndex={18}
               htmlFor="checkbox3"
             >
               37
@@ -82,6 +85,7 @@ export default function SelectSizeNumberProduct({formikProps}){
                   ? ' checked'
                   : ''
               }`}
+              tabIndex={19}
               htmlFor="checkbox4"
             >
               38
@@ -100,6 +104,7 @@ export default function SelectSizeNumberProduct({formikProps}){
                   ? ' checked'
                   : ''
               }`}
+              tabIndex={20}
               htmlFor="checkbox5"
             >
               39
@@ -118,6 +123,7 @@ export default function SelectSizeNumberProduct({formikProps}){
                   ? ' checked'
                   : ''
               }`}
+              tabIndex={21}
               htmlFor="checkbox6"
             >
               40

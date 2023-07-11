@@ -3,7 +3,7 @@ export default function InputCategoryProduct({formikProps}){
             <div className="container-input container-product-category">
             <label htmlFor='product_category'>Primeiro selecione o produto </label>
             <select
-                tabIndex={18}
+                tabIndex={11}
                 name="product_category"
                 className="product_category"
                 {...formikProps.getFieldProps('product_category')}

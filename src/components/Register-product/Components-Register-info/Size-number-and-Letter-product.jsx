@@ -29,6 +29,7 @@ export default function SelectSizeNumberAndLetterProduct({formikProps}){
                   ? ' checked'
                   : ''
               }`}
+              tabIndex={16}
               htmlFor="checkbox1"
             >
              P(54-56)
@@ -47,6 +48,7 @@ export default function SelectSizeNumberAndLetterProduct({formikProps}){
                   ? ' checked'
                   : ''
               }`}
+              tabIndex={17}
               htmlFor="checkbox2"
             >
               M(56-58)
@@ -65,6 +67,7 @@ export default function SelectSizeNumberAndLetterProduct({formikProps}){
                   ? ' checked'
                   : ''
               }`}
+              tabIndex={18}
               htmlFor="checkbox3"
             >
               G(58-60)

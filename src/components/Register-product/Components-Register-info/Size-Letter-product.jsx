@@ -28,6 +28,7 @@ export default function SelectSizeLetterProduct({formikProps}){
                 ? ' checked'
                 : ''
             }`}
+            tabIndex={16}
             htmlFor="checkbox1"
           >
             P(S)
@@ -46,6 +47,7 @@ export default function SelectSizeLetterProduct({formikProps}){
                 ? ' checked'
                 : ''
             }`}
+            tabIndex={17}
             htmlFor="checkbox2"
           >
             M(M)
@@ -64,6 +66,7 @@ export default function SelectSizeLetterProduct({formikProps}){
                 ? ' checked'
                 : ''
             }`}
+            tabIndex={18}
             htmlFor="checkbox3"
           >
             G(L)
@@ -82,6 +85,7 @@ export default function SelectSizeLetterProduct({formikProps}){
                 ? ' checked'
                 : ''
             }`}
+            tabIndex={19}
             htmlFor="checkbox4"
           >
             GG(XL)
@@ -95,13 +99,6 @@ export default function SelectSizeLetterProduct({formikProps}){
           </label>
 
         </div>
-
-
-        {/* || */ 
-          console.log(formikProps.touched)
-        }
-
-
 
         {formikProps.errors.Product_Size_Letter && 
           formikProps.touched.Product_Size_Letter && (

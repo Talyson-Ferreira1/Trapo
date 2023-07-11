@@ -5,6 +5,7 @@ export default function InputGenerProduct({formikProps}){
         <label htmlFor="product_gener"> Selecione o gênero</label>
         <select
           name="product_gener"
+          tabIndex={14}
           className="product_gener"
           {...formikProps.getFieldProps('product_gener')}
           >
