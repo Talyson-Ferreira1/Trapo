@@ -25,8 +25,6 @@ export default function ProductImages({ formikProps, reset }) {
 
     const imageKey = `Images${indexGroup}`;
 
-    console.log('chave atual', imageKey);
-
     if (updatedProductImage.hasOwnProperty(imageKey)) {
       updatedProductImage[imageKey] = {
         ...updatedProductImage[imageKey],
@@ -68,6 +66,20 @@ export default function ProductImages({ formikProps, reset }) {
     setCurrentGroupImages(num);
   };
 
+  const ImagensForDelet = (nameGroup) => {
+    console.log(imageInputs);
+
+    setImageFiles((prevFiles) => ({
+      ...prevFiles,
+      [nameGroup]: {
+        image_1: null,
+        image_2: null,
+        image_3: null,
+        image_4: null,
+      },
+    }));
+  };
+
   useEffect(() => {
     if (reset) {
       setImageFiles({});
@@ -84,7 +96,6 @@ export default function ProductImages({ formikProps, reset }) {
       inputs.push(
         currentGroupImages === i && (
           <div key={`group-${i}`} className="container-input-all-images">
-            {console.log(i)}
             <PrimaryInput
               formikProps={formikProps}
               focused={handleInputFocus}
@@ -158,6 +169,7 @@ export default function ProductImages({ formikProps, reset }) {
         formikProps={formikProps}
         counterGroups={getCurrentGroup}
         amountOfGroups={updateGroupQuantity}
+        imagesForDel={ImagensForDelet}
       />
     </fieldset>
   );

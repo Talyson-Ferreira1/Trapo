@@ -127,7 +127,16 @@
     border: 1px solid var(--grayScale-2);
     overflow: hidden;
     position: relative;
-    cursor:pointer
+    cursor:pointer;
+    position: relative;
+}
+
+.fieldset-Images .preview-all-images .container-svg-preview {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
 }
 
 .fieldset-Images .preview-all-images .color{
@@ -140,7 +149,13 @@
     border-radius: 50%;
     grid-column:  2;
     grid-row: 1;
+    z-index: 2;
 
+}
+
+.fieldset-Images .preview-all-images .container-image-preview {
+    position: absolute;
+    z-index: 1;
 }
 
 .fieldset-Images .preview-all-images .remove-last-image,

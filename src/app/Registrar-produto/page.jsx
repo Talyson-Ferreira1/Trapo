@@ -13,10 +13,10 @@ export default function Register() {
   const [toastMessage, setToastMessage] = useState(false);
   const [finishedLoading, setFinishedLoading] = useState(false);
   const [categoryBasedRendering, setCategoryBasedRendering] = useState({
-    Size_Letter:false,
-    Size_Number:false,
-    Size_Number_with_Letter:false,
-  })
+    Size_Letter: false,
+    Size_Number: false,
+    Size_Number_with_Letter: false,
+  });
 
   const generateProductId = () => {
     const characters =
@@ -55,56 +55,55 @@ export default function Register() {
   });
 
   const initialValues = {
-
-    product_category:'',
-    product_name:'',
-    product_price:'',
-    product_description:'',
-    product_gener:'',
-    product_color:{
-      color1:{
-        id:'',
-        hashColor:'#000000'
+    product_category: '',
+    product_name: '',
+    product_price: '',
+    product_description: '',
+    product_gener: '',
+    product_color: {
+      color1: {
+        id: '',
+        hashColor: '#000000',
       },
-      color2:{
-        id:'',
-        hashColor:''
+      color2: {
+        id: '',
+        hashColor: '',
       },
-      color3:{
-        id:'',
-        hashColor:''
+      color3: {
+        id: '',
+        hashColor: '',
       },
-      color4:{
-        id:'',
-        hashColor:''
+      color4: {
+        id: '',
+        hashColor: '',
       },
-      color5:{
-        id:'',
-        hashColor:''
+      color5: {
+        id: '',
+        hashColor: '',
       },
-      color6:{
-        id:'',
-        hashColor:''
+      color6: {
+        id: '',
+        hashColor: '',
       },
     },
     Product_Size_Number_with_Letter: {
-      checkbox1:[],
-      checkbox2:[],
-      checkbox3:[]
+      checkbox1: [],
+      checkbox2: [],
+      checkbox3: [],
     },
-    Product_Size_Number:{
-      checkbox1:[],
-      checkbox2:[],
-      checkbox3:[],
-      checkbox4:[],
-      checkbox5:[],
-      checkbox6:[]
+    Product_Size_Number: {
+      checkbox1: [],
+      checkbox2: [],
+      checkbox3: [],
+      checkbox4: [],
+      checkbox5: [],
+      checkbox6: [],
     },
     Product_Size_Letter: {
-      checkbox1:[],
-      checkbox2:[],
-      checkbox3:[],
-      checkbox4:[]
+      checkbox1: [],
+      checkbox2: [],
+      checkbox3: [],
+      checkbox4: [],
     },
     product_Image: {
       Images1: {
@@ -144,7 +143,6 @@ export default function Register() {
         image_4: null,
       },
     },
-    
   };
 
   const validate = (values) => {
@@ -153,13 +151,13 @@ export default function Register() {
     const array_Size_Number_with_Letter = [
       values.Product_Size_Number_with_Letter.checkbox1,
       values.Product_Size_Number_with_Letter.checkbox2,
-      values.Product_Size_Number_with_Letter.checkbox3
+      values.Product_Size_Number_with_Letter.checkbox3,
     ];
     const array_Size_Letter = [
       values.Product_Size_Letter.checkbox1,
       values.Product_Size_Letter.checkbox2,
       values.Product_Size_Letter.checkbox3,
-      values.Product_Size_Letter.checkbox4
+      values.Product_Size_Letter.checkbox4,
     ];
     const array_Size_Number = [
       values.Product_Size_Letter.checkbox1,
@@ -167,14 +165,20 @@ export default function Register() {
       values.Product_Size_Letter.checkbox3,
       values.Product_Size_Letter.checkbox4,
       values.Product_Size_Letter.checkbox5,
-      values.Product_Size_Letter.checkbox6
-
+      values.Product_Size_Letter.checkbox6,
     ];
-  
-    const all_Are_Empty_Array_Number_with_Letter = array_Size_Number_with_Letter.every((value) => Array.isArray(value) && value.length === 0);
-    const all_Are_Empty_Array_Letter = array_Size_Letter.every((value) => Array.isArray(value) && value.length === 0);
-    const all_Are_Empty_Array_Number = array_Size_Number.every((value) => Array.isArray(value) && value.length === 0);
-  
+
+    const all_Are_Empty_Array_Number_with_Letter =
+      array_Size_Number_with_Letter.every(
+        (value) => Array.isArray(value) && value.length === 0
+      );
+    const all_Are_Empty_Array_Letter = array_Size_Letter.every(
+      (value) => Array.isArray(value) && value.length === 0
+    );
+    const all_Are_Empty_Array_Number = array_Size_Number.every(
+      (value) => Array.isArray(value) && value.length === 0
+    );
+
     if (!values.product_name) {
       errors.product_name = 'Campo obrigatório';
     } else if (values.product_name.length < 5) {
@@ -186,7 +190,7 @@ export default function Register() {
     } else if (!regex.test(values.product_price)) {
       errors.product_price = 'Insira um valor numérico válido';
     }
-  
+
     if (!values.product_category) {
       errors.product_category = 'Campo obrigatório';
     }
@@ -198,30 +202,32 @@ export default function Register() {
     } else if (values.product_description.length > 100) {
       errors.product_description = 'Insira no máximo 100 caracteres';
     }
-    
+
     if (!values.product_gener) {
       errors.product_gener = 'Campo obrigatório';
     }
 
-    if (categoryBasedRendering.Size_Number_with_Letter && all_Are_Empty_Array_Number_with_Letter) {
+    if (
+      categoryBasedRendering.Size_Number_with_Letter &&
+      all_Are_Empty_Array_Number_with_Letter
+    ) {
       errors.Product_Size_Number_with_Letter = 'Selecione no mínimo uma medida';
     }
-    
+
     if (categoryBasedRendering.Size_Letter && all_Are_Empty_Array_Letter) {
       errors.Product_Size_Letter = 'Selecione no mínimo uma medida';
     }
-    
+
     if (categoryBasedRendering.Size_Number && all_Are_Empty_Array_Number) {
       errors.Product_Size_Number = 'Selecione no mínimo uma medida';
     }
-    
+
     return errors;
   };
-  
+
   const onSubmit = (values) => {
-    console.log(values);  
+    console.log(values);
   };
-  
 
   return (
     <Formik
@@ -230,10 +236,9 @@ export default function Register() {
       onSubmit={onSubmit}
     >
       {(formikProps) => {
-
         useEffect(() => {
           const typeProduct = formikProps.values.product_category;
-  
+
           if (typeProduct !== 'shoes' && typeProduct !== 'hat') {
             setCategoryBasedRendering({
               Size_Letter: true,
@@ -241,12 +246,12 @@ export default function Register() {
               Size_Number_with_Letter: false,
             });
           } else {
-            setCategoryBasedRendering(prevState => ({
+            setCategoryBasedRendering((prevState) => ({
               ...prevState,
-              Size_Letter: false
+              Size_Letter: false,
             }));
           }
-  
+
           if (typeProduct === 'shoes') {
             setCategoryBasedRendering({
               Size_Letter: false,
@@ -254,12 +259,12 @@ export default function Register() {
               Size_Number_with_Letter: false,
             });
           } else {
-            setCategoryBasedRendering(prevState => ({
+            setCategoryBasedRendering((prevState) => ({
               ...prevState,
-              Size_Number: false
+              Size_Number: false,
             }));
           }
-  
+
           if (typeProduct === 'hat') {
             setCategoryBasedRendering({
               Size_Letter: false,
@@ -267,13 +272,13 @@ export default function Register() {
               Size_Number_with_Letter: true,
             });
           } else {
-            setCategoryBasedRendering(prevState => ({
+            setCategoryBasedRendering((prevState) => ({
               ...prevState,
-              Size_Number_with_Letter: false
+              Size_Number_with_Letter: false,
             }));
           }
         }, [formikProps.values.product_category]);
-  
+
         return (
           <main>
             {toastMessage && (
@@ -291,7 +296,7 @@ export default function Register() {
                 theme="colored"
               />
             )}
-  
+
             <form onSubmit={formikProps.handleSubmit}>
               <RegisterImage
                 formikProps={formikProps}
@@ -308,5 +313,4 @@ export default function Register() {
       }}
     </Formik>
   );
-  
 }
