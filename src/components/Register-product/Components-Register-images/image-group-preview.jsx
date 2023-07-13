@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useColorContext } from '@/context/ActiveColors/ColorsProvider';
 
 export default function ImageGroupPreview({
   formikProps,
@@ -6,6 +7,7 @@ export default function ImageGroupPreview({
   amountOfGroups,
   imagesForDel,
 }) {
+  const { numberActiveColor, handleNumberOfColors } = useColorContext();
   const [numImageGroups, setNumImageGroups] = useState(1);
   const imageGroups = [];
   const { values } = formikProps;
@@ -13,8 +15,10 @@ export default function ImageGroupPreview({
 
   const handleAddMoreImages = () => {
     if (numImageGroups === 6) return;
+
     currentGroup(numImageGroups + 1);
     setNumImageGroups((prevNum) => prevNum + 1);
+
     imageGroups.push(
       <div
         className="img-group image-group-1"
@@ -26,7 +30,6 @@ export default function ImageGroupPreview({
   };
 
   const handleRemoveLastImage = () => {
-    //remover as imagens do formikProps e imageFiles
     if (numImageGroups > 1) {
       currentGroup(numImageGroups - 1);
       setNumImageGroups((prevNum) => prevNum - 1);
@@ -54,6 +57,10 @@ export default function ImageGroupPreview({
 
     return null;
   };
+
+  useEffect(() => {
+    handleNumberOfColors(numImageGroups);
+  }, [numImageGroups]);
 
   const renderImagePreviewGroup1 = (fieldName) => {
     const previews = [];

@@ -1,12 +1,13 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import ImageGroupPreview from '../Components-Register-images/image-group-preview';
 import PrimaryInput from '../Components-Register-images/primary-input';
 import SecoundaryInput from '../Components-Register-images/secoundary-input';
 import './style-register-image.css';
 
-//excluir os valores dos campos apos serem excluidos no ImageGroupPreview.
-//Manipular o grupo de imagens atual.
 // criar e remover a cor quando excluir um preview
+// descobrir uma forma de Escolher um tamanho para cada produto
+// Criar um identificador para o preview de imagens
+// Zerar todos os inputs e o formikValues quando mudar a categoria do produto.
 
 export default function ProductImages({ formikProps, reset }) {
   const [counterGroupImages, setCounterGroupImages] = useState(null);
@@ -67,8 +68,6 @@ export default function ProductImages({ formikProps, reset }) {
   };
 
   const ImagensForDelet = (nameGroup) => {
-    console.log(imageInputs);
-
     setImageFiles((prevFiles) => ({
       ...prevFiles,
       [nameGroup]: {
@@ -162,7 +161,9 @@ export default function ProductImages({ formikProps, reset }) {
   return (
     <fieldset className="fieldset-Images">
       <h2>Adicione imagens do produto</h2>
-
+      {formikProps.touched.product_Image && formikProps.errors.images && (
+        <span className="warning-images">{formikProps.errors.images}</span>
+      )}
       {renderGroupInputs()}
 
       <ImageGroupPreview

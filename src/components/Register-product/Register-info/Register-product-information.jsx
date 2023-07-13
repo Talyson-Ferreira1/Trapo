@@ -1,67 +1,70 @@
-import InputCategoryProduct from '../Components-Register-info/Input-category-product'
-import InputNameProduct from '../Components-Register-info/Input-name-product'
-import InputPriceProduct from '../Components-Register-info/Input-price-product'
-import InputDescriptionProduct from '../Components-Register-info/Input-Description-product'
-import InputGenerProduct from '../Components-Register-info/Input-Gener-product'
-import InputColorProduct from '../Components-Register-info/Input-color-product'
-import SelectSizeNumberProduct from '../Components-Register-info/Size-Number-product'
-import SelectSizeLetterProduct from '../Components-Register-info/Size-Letter-product'
-import SelectSizeNumberAndLetterProduct from '../Components-Register-info/Size-number-and-Letter-product'
-import Submit from '../Components-Register-info/Button-submit'
+import InputCategoryProduct from '../Components-Register-info/Input-category-product';
+import InputNameProduct from '../Components-Register-info/Input-name-product';
+import InputPriceProduct from '../Components-Register-info/Input-price-product';
+import InputDescriptionProduct from '../Components-Register-info/Input-Description-product';
+import InputGenerProduct from '../Components-Register-info/Input-Gener-product';
+import InputColorProduct from '../Components-Register-info/Input-color-product';
+import Group_measure_1 from '../Components-Register-info/Group_measure_1';
+import Group_measure_2 from '../Components-Register-info/Group_measure_2';
+import Group_measure_3 from '../Components-Register-info/Group_measure_3';
+import Submit from '../Components-Register-info/Button-submit';
 
-import './style-register-info.css'
-import { useEffect, useState } from 'react'
+import './style-register-info.css';
+import { useEffect, useState } from 'react';
 
-export default function ProductInfo({formikProps, categoryBasedRendering}){
+export default function ProductInfo({ formikProps, categoryBasedRendering }) {
+  const [
+    renderInputsAfterDefiningCategory,
+    setRenderInputsAfterDefiningCategory,
+  ] = useState(true);
 
-    const [renderInputsAfterDefiningCategory, setRenderInputsAfterDefiningCategory] = useState(true) 
+  useEffect(() => {
+    if (formikProps.values.product_category === '') {
+      setRenderInputsAfterDefiningCategory(true);
+    } else {
+      setRenderInputsAfterDefiningCategory(false);
+    }
+  }, [formikProps.values.product_category]);
 
-    useEffect(()=>{
-        if(formikProps.values.product_category === ''){
-            setRenderInputsAfterDefiningCategory(true)
-        }else{
-            setRenderInputsAfterDefiningCategory(false)
-        }
+  return (
+    <fieldset className="fieldset-Info">
+      <h2>Informações do produto</h2>
 
-    },[formikProps.values.product_category])
+      {renderInputsAfterDefiningCategory && <div className="blockInputs"></div>}
+      <div className="container-all-inputs">
+        <InputCategoryProduct formikProps={formikProps} />
 
-    return(
-        <fieldset className='fieldset-Info'>
+        <InputNameProduct formikProps={formikProps} />
 
-            <h2>Informações do produto</h2>
+        <InputPriceProduct formikProps={formikProps} />
 
-            {renderInputsAfterDefiningCategory && (
-                <div className='blockInputs'></div>
+        <InputGenerProduct formikProps={formikProps} />
+
+        <InputDescriptionProduct formikProps={formikProps} />
+
+        <>
+          {categoryBasedRendering.Group_measure_3 && (
+            <Group_measure_3 formikProps={formikProps} />
+          )}
+
+          {categoryBasedRendering.Group_measure_2 && (
+            <Group_measure_2 formikProps={formikProps} />
+          )}
+
+          {categoryBasedRendering.Group_measure_1 && (
+            <Group_measure_1 formikProps={formikProps} />
+          )}
+
+          {formikProps.errors.checkbox &&
+            formikProps.touched.product_measure && (
+              <span className="warning">{formikProps.errors.checkbox}</span>
             )}
-            <div className="container-all-inputs">
+        </>
 
-                <InputCategoryProduct formikProps={formikProps} /> 
+        <InputColorProduct formikProps={formikProps} />
 
-                <InputNameProduct formikProps={formikProps} />
-
-                <InputPriceProduct formikProps={formikProps} />
-
-                <InputGenerProduct formikProps={formikProps} />
-                
-                <InputDescriptionProduct formikProps={formikProps} /> 
- 
-                {categoryBasedRendering.Size_Number_with_Letter && (
-                    <SelectSizeNumberAndLetterProduct formikProps={formikProps} />
-                )}
-
-                {categoryBasedRendering.Size_Letter && (
-                    <SelectSizeLetterProduct formikProps={formikProps} />
-                )}
-
-                {categoryBasedRendering.Size_Number && (
-                    <SelectSizeNumberProduct formikProps={formikProps} />
-                )}
-
-                <InputColorProduct formikProps={formikProps} />
-
-                <Submit formikProps={formikProps}/>
-
-            </div>
-        </fieldset>
-    )
+        <Submit formikProps={formikProps} />
+      </div>
+    </fieldset>
+  );
 }

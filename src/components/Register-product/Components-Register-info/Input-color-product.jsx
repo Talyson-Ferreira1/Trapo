@@ -1,8 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
+import { useColorContext } from '@/context/ActiveColors/ColorsProvider';
 
 export default function InputColorProduct({ formikProps }) {
   const containerInputsRef = useRef(null);
   const [inputCount, setInputCount] = useState(1);
+  const { numberActiveColor } = useColorContext();
 
   const createNewInput = () => {
     if (inputCount < 6) {
@@ -12,8 +14,8 @@ export default function InputColorProduct({ formikProps }) {
       setInputCount(newInputCount);
 
       formikProps.setFieldValue(fieldName, {
-        id: "",
-        hashColor: ""
+        id: undefined,
+        hashColor: '#000000',
       });
     }
   };
@@ -27,18 +29,27 @@ export default function InputColorProduct({ formikProps }) {
       const lastFieldName = `product_color.color${newInputCount + 1}`;
 
       formikProps.setFieldValue(lastFieldName, {
-        id: "",
-        hashColor: ""
+        id: undefined,
+        hashColor: undefined,
       });
     }
   };
 
   const handleColorChange = (fieldName, color) => {
     formikProps.setFieldValue(fieldName, {
-      id: "",
-      hashColor: color
+      id: undefined,
+      hashColor: color,
     });
   };
+
+  useEffect(() => {
+    if (numberActiveColor > inputCount) {
+      createNewInput();
+    }
+    if (numberActiveColor < inputCount) {
+      deleteLastInput();
+    }
+  }, [numberActiveColor]);
 
   return (
     <div className="container-input container-product-color">
@@ -47,11 +58,10 @@ export default function InputColorProduct({ formikProps }) {
       <div ref={containerInputsRef} className="container-input-color">
         {[...Array(inputCount)].map((_, index) => {
           const fieldName = `product_color.color${index + 1}`;
-          const fieldValue =
-            formikProps.values.product_color[fieldName] || {
-              id: "",
-              hashColor: ""
-            };
+          const fieldValue = formikProps.values.product_color[fieldName] || {
+            id: '',
+            hashColor: '',
+          };
 
           return (
             <div key={fieldName} className="input-color-container">

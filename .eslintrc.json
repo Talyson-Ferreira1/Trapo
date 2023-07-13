@@ -22,7 +22,8 @@
     "rules": {
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
-      "next/core-web-vitals": "warn"
+      "next/core-web-vitals": "warn",
+      "max-len": ["error", { "code": 150 }]
       
     }
   }

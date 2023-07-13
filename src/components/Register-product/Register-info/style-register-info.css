@@ -78,7 +78,9 @@
 .fieldset-Info .product_size {
   display: flex;
   align-items: center;
-  height:3rem;
+  height:auto;
+  flex-wrap: wrap;
+  gap: .1rem;
 }
 
 .fieldset-Info .product_color {
@@ -193,6 +195,7 @@
   width: 100%;
   height: 100%;
   background: var(--mediumWhite) ;
+  backdrop-filter: blur(1px);
   z-index: 3;
 }
 
