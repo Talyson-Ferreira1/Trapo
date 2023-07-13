@@ -7,11 +7,12 @@ export default function ImageGroupPreview({
   amountOfGroups,
   imagesForDel,
 }) {
-  const { numberActiveColor, handleNumberOfColors } = useColorContext();
   const [numImageGroups, setNumImageGroups] = useState(1);
-  const imageGroups = [];
+  const [highlight, setHighlight] = useState(0);
   const { values } = formikProps;
+  const { handleNumberOfColors } = useColorContext();
   const colors = values.product_color;
+  const imageGroups = [];
 
   const handleAddMoreImages = () => {
     if (numImageGroups === 6) return;
@@ -40,7 +41,11 @@ export default function ImageGroupPreview({
 
   const currentGroup = (event) => {
     counterGroups(event);
+    setHighlight(event);
+    console.log(event);
   };
+
+  const highlightImagePreview = (number) => {};
 
   const renderImagePreviewGroup = (groupNum, fieldName) => {
     const { values } = formikProps;
@@ -68,7 +73,9 @@ export default function ImageGroupPreview({
     for (let i = 1; i <= numImageGroups; i++) {
       previews.push(
         <div
-          className="img-group image-group-1"
+          className={`img-group image-group-1 ${
+            highlight === i ? 'highlight' : ''
+          }`}
           key={`group-${i}`}
           onClick={() => currentGroup(i)}
         >

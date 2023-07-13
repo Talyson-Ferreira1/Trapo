@@ -79,24 +79,26 @@ export default function InputColorProduct({ formikProps }) {
             </div>
           );
         })}
-        {inputCount > 1 && (
+        <div className="container-button-inp-color">
           <button
             type="button"
-            title="Excluir última cor"
-            className="deleteLastColor"
-            onClick={deleteLastInput}
+            title="Adicione outra cor"
+            className="addMoreColor"
+            onClick={createNewInput}
           >
-            -
+            +
           </button>
-        )}
-        <button
-          type="button"
-          title="Adicione outra cor"
-          className="addMoreColor"
-          onClick={createNewInput}
-        >
-          +
-        </button>
+          {inputCount > 1 && (
+            <button
+              type="button"
+              title="Excluir última cor"
+              className="deleteLastColor"
+              onClick={deleteLastInput}
+            >
+              -
+            </button>
+          )}
+        </div>
       </div>
 
       {formikProps.touched.product_color &&

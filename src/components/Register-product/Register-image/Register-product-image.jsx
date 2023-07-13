@@ -4,11 +4,6 @@ import PrimaryInput from '../Components-Register-images/primary-input';
 import SecoundaryInput from '../Components-Register-images/secoundary-input';
 import './style-register-image.css';
 
-// criar e remover a cor quando excluir um preview
-// descobrir uma forma de Escolher um tamanho para cada produto
-// Criar um identificador para o preview de imagens
-// Zerar todos os inputs e o formikValues quando mudar a categoria do produto.
-
 export default function ProductImages({ formikProps, reset }) {
   const [counterGroupImages, setCounterGroupImages] = useState(null);
   const [currentGroupImages, setCurrentGroupImages] = useState(1);

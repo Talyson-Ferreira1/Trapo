@@ -94,13 +94,18 @@
 
 .fieldset-Info .container-input-color {
   width: 80%;
-  height: 4rem;
+  height: auto;
   display: flex;
   align-items: center;
   position: relative;
   gap: 1rem;
-
+  flex-wrap: wrap;
 }
+.fieldset-Info  .container-button-inp-color {
+  display: flex;
+  flex-direction: column;
+}
+
 
 .fieldset-Info .container-input-color .deleteLastColor,
 .fieldset-Info .container-input-color .addMoreColor {

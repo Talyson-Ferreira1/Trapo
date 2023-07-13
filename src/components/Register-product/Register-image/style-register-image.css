@@ -1,6 +1,6 @@
 .fieldset-Images {
     border: none;
-    padding: 1rem 0rem;
+    padding: 1rem 0 0 0;
     overflow-x: hidden;
     display: grid;
     grid-template-columns: 100%;
@@ -130,6 +130,11 @@
     position: relative;
     cursor:pointer;
     position: relative;
+}
+
+.preview-all-images .img-group.highlight {
+    border: 2px solid var(--grayScale-2);
+    transform: scale(1.1);
 }
 
 .fieldset-Images .preview-all-images .container-svg-preview {
