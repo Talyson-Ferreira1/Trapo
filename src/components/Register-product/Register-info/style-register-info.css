@@ -4,6 +4,8 @@
     background: var(--grayScale-1);
     overflow-x: hidden;
     overflow-Y: scroll;
+    padding-bottom: 6rem;
+    scroll-behavior: smooth;
 }
 
 .fieldset-Info::-webkit-scrollbar {
@@ -15,6 +17,11 @@
 .fieldset-Info::-webkit-scrollbar-thumb {
   background: var(--grayScale-2);
   border-radius: 50px;
+}
+
+.fieldset-Info::-webkit-scrollbar-thumb:hover {
+  background: var(--white-scale-2);
+
 }
 
 .fieldset-Info h2 {
@@ -30,7 +37,7 @@
 .fieldset-Info label {
     display: flex;
     padding:  1rem 0 .5rem 1rem;
-    font-size: var(--x-small-size-font);
+    font-size: var(--small-size-font);
     font-weight: 500;
 } 
 
@@ -50,6 +57,7 @@
   height: 3rem;
   padding: .5rem 1rem;
   font-weight: 500;
+  font-size: var(--small-size-font);
   cursor: pointer;
 }
 
@@ -61,6 +69,13 @@
 .product_color:focus,
 .form_submit:focus {
   outline: 2px solid var(--grayScale-2);
+}
+
+.fieldset-Info input:hover,
+.fieldset-Info textarea:hover,
+.fieldset-Info .product_size label:hover,
+.fieldset-Info select:hover{
+  transform: scale(1.02);
 }
 
 .fieldset-Info .product_category {
@@ -92,6 +107,10 @@
   border: none;
 }
 
+.fieldset-Info .product_color:hover{
+  transform: scale(1.05);
+}
+
 .fieldset-Info .container-input-color {
   width: 80%;
   height: auto;
@@ -101,11 +120,11 @@
   gap: 1rem;
   flex-wrap: wrap;
 }
+
 .fieldset-Info  .container-button-inp-color {
   display: flex;
   flex-direction: column;
 }
-
 
 .fieldset-Info .container-input-color .deleteLastColor,
 .fieldset-Info .container-input-color .addMoreColor {
@@ -144,6 +163,41 @@
   background: rgba(255, 255, 255, 0.763);
   box-shadow: 3px 3px 5px #cacaca2f,
           -3px -3px 5px #ffffff39;
+
+}
+
+/* .form_submit */ 
+.container-submit{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%; 
+  background:var(--mediumWhite) ;
+  backdrop-filter: blur(2px);
+  padding-left: 2rem;
+}
+.fieldset-Info .up,
+.fieldset-Info .down {
+  position: absolute;
+  right: 2rem;
+  bottom: 6rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .5s;
+  z-index: 3;
+}
+
+.fieldset-Info .up.hiddem,
+.fieldset-Info .down.hiddem {
+  display: none;
+}
+.fieldset-Info .up{
+  transform: rotate(-180deg);
 
 }
 
@@ -200,7 +254,7 @@
   width: 100%;
   height: 100%;
   background: var(--mediumWhite) ;
-  backdrop-filter: blur(1px);
+  backdrop-filter: blur(3px);
   z-index: 3;
 }
 

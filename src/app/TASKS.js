@@ -1,3 +1,6 @@
 
-// Zerar todos os inputs e o formikValues quando mudar a categoria do produto.
-// Adicionar um botão iindicador de scroll lateral quando os elementos forem cobertos no imagePreview
+
+// diminuir o blur do blockInputs
+// Criar um skeleton loader para a page RegisterProduct
+// criar o loader do botão cadastrar
+// Quando eniar os valores para o dB  não alterar a propriedade category 

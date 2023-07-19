@@ -1,14 +1,14 @@
 export default function InputDescriptionProduct({ formikProps }) {
   return (
     <div className=" container-input container-product-description">
-      <label htmlFor="product_description"> Descrição do produto</label>
+      <label htmlFor="product_description"> Descrição </label>
       <textarea
         rows="4"
         cols="50"
         tabIndex={15}
         name="product_description"
         className="product_description"
-        placeholder="Ex.: Produto importado com material resistente"
+        placeholder="Descreva o produto"
         {...formikProps.getFieldProps('product_description')}
       />
       {formikProps.touched.product_description &&

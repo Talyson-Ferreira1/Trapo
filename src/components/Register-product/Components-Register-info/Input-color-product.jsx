@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useDeferredValue, useEffect, useRef, useState } from 'react';
 import { useColorContext } from '@/context/ActiveColors/ColorsProvider';
 
 export default function InputColorProduct({ formikProps }) {
@@ -14,7 +14,6 @@ export default function InputColorProduct({ formikProps }) {
       setInputCount(newInputCount);
 
       formikProps.setFieldValue(fieldName, {
-        id: undefined,
         hashColor: '#000000',
       });
     }
@@ -29,7 +28,6 @@ export default function InputColorProduct({ formikProps }) {
       const lastFieldName = `product_color.color${newInputCount + 1}`;
 
       formikProps.setFieldValue(lastFieldName, {
-        id: undefined,
         hashColor: undefined,
       });
     }
@@ -37,10 +35,18 @@ export default function InputColorProduct({ formikProps }) {
 
   const handleColorChange = (fieldName, color) => {
     formikProps.setFieldValue(fieldName, {
-      id: undefined,
       hashColor: color,
     });
   };
+
+  useEffect(() => {
+    const activeColorCount = Object.keys(
+      formikProps.values.product_color
+    ).filter(
+      (key) => formikProps.values.product_color[key].hashColor !== undefined
+    ).length;
+    setInputCount(activeColorCount);
+  }, [formikProps.values.product_color]);
 
   useEffect(() => {
     if (numberActiveColor > inputCount) {
@@ -53,13 +59,12 @@ export default function InputColorProduct({ formikProps }) {
 
   return (
     <div className="container-input container-product-color">
-      <label htmlFor="product_color">Selecione as cores do produto</label>
+      <label htmlFor="product_color">Cores disponíveis</label>
 
       <div ref={containerInputsRef} className="container-input-color">
         {[...Array(inputCount)].map((_, index) => {
           const fieldName = `product_color.color${index + 1}`;
           const fieldValue = formikProps.values.product_color[fieldName] || {
-            id: '',
             hashColor: '',
           };
 
@@ -71,6 +76,7 @@ export default function InputColorProduct({ formikProps }) {
                 className="product_color"
                 onChange={(e) => handleColorChange(fieldName, e.target.value)}
                 onBlur={formikProps.handleBlur}
+                title="Alterar a cor"
               />
               <div
                 className="color-preview"

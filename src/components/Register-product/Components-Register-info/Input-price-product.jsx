@@ -9,7 +9,7 @@ export default function InputPriceProduct({ formikProps }) {
         type="number"
         pattern="[0-9]*"
         name="product_price"
-        placeholder="Ex.: 109,99"
+        placeholder="109,99"
         className="product_price"
         {...formikProps.getFieldProps('product_price')}
       />

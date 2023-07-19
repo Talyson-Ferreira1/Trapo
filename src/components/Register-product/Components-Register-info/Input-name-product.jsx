@@ -7,7 +7,7 @@ export default function InputNameProduct({ formikProps }) {
         tabIndex={12}
         name="product_name"
         className="product_name"
-        placeholder="Ex.: Camisa estampada"
+        placeholder="Camisa estampada"
         {...formikProps.getFieldProps('product_name')}
       />
       {formikProps.touched.product_name && formikProps.errors.product_name && (

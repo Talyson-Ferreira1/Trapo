@@ -1,4 +1,4 @@
-export default function InputCategoryProduct({ formikProps }) {
+export default function InputCategoryProduct({ formikProps, change }) {
   return (
     <div className="container-input container-product-category">
       <label htmlFor="product_category">Primeiro selecione o produto </label>
@@ -16,7 +16,7 @@ export default function InputCategoryProduct({ formikProps }) {
         <option value="pants"> Calças </option>
         <option value="shoes"> Calçados </option>
         <option value="hoodies"> Moletons </option>
-        <option value="hat"> Chapeis </option>
+        <option value="accessories"> Acessórios </option>
       </select>
 
       {formikProps.touched.product_category &&

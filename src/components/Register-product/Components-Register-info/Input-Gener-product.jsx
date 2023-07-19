@@ -1,7 +1,7 @@
 export default function InputGenerProduct({ formikProps }) {
   return (
     <div className=" container-input container-product-gener">
-      <label htmlFor="product_gener"> Selecione o gênero</label>
+      <label htmlFor="product_gener"> Gênero</label>
       <select
         name="product_gener"
         tabIndex={14}

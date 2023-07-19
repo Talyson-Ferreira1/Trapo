@@ -1,10 +1,10 @@
-import { useEffect, useState, useRef, useContext } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import ImageGroupPreview from '../Components-Register-images/image-group-preview';
 import PrimaryInput from '../Components-Register-images/primary-input';
 import SecoundaryInput from '../Components-Register-images/secoundary-input';
 import './style-register-image.css';
 
-export default function ProductImages({ formikProps, reset }) {
+export default function ProductImages({ formikProps }) {
   const [counterGroupImages, setCounterGroupImages] = useState(null);
   const [currentGroupImages, setCurrentGroupImages] = useState(1);
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -75,13 +75,11 @@ export default function ProductImages({ formikProps, reset }) {
   };
 
   useEffect(() => {
-    if (reset) {
-      setImageFiles({});
-      imageInputs.current.forEach((input) => {
-        input.value = ''; // Limpa o valor do input
-      });
-    }
-  }, [reset]);
+    setImageFiles({});
+    imageInputs.current.forEach((input) => {
+      input.value = '';
+    });
+  }, [formikProps.values.product_category]);
 
   const renderGroupInputs = () => {
     const inputs = [];

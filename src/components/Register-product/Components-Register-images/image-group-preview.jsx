@@ -42,10 +42,7 @@ export default function ImageGroupPreview({
   const currentGroup = (event) => {
     counterGroups(event);
     setHighlight(event);
-    console.log(event);
   };
-
-  const highlightImagePreview = (number) => {};
 
   const renderImagePreviewGroup = (groupNum, fieldName) => {
     const { values } = formikProps;
@@ -134,7 +131,7 @@ export default function ImageGroupPreview({
     <div className="preview-all-images">
       {renderImagePreviewGroup1('image_1')}
 
-      <div>
+      <div className="container-button-img-preiew">
         <button
           type="button"
           className="add-more-images"

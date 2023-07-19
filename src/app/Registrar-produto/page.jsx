@@ -1,7 +1,16 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import {
+  getFirestore,
+  collection,
+  setDoc,
+  doc,
+  getDoc,
+} from 'firebase/firestore';
+import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import { appFirebase } from '@/services/firebase';
 import { Formik } from 'formik';
+import { ToastContainer, toast } from 'react-toastify';
 
 import RegisterInfo from '@/components/Register-product/Register-info/Register-product-information';
 import RegisterImage from '@/components/Register-product/Register-image/Register-product-image';
@@ -10,18 +19,20 @@ import 'react-toastify/dist/ReactToastify.css';
 import './style-page-register-product.css';
 
 export default function Register() {
-  const [toastMessage, setToastMessage] = useState(false);
-  const [finishedLoading, setFinishedLoading] = useState(false);
   const [categoryBasedRendering, setCategoryBasedRendering] = useState({
     Group_measure_1: false,
     Group_measure_2: false,
     Group_measure_3: false,
   });
+  const db = getFirestore(appFirebase);
+  const storage = getStorage(appFirebase);
+  const SendProductCollection = collection(db, 'Product');
+  const docRef = doc(SendProductCollection, 'AllProducts');
 
-  const generateProductId = () => {
+  const generateProductId = (num) => {
     const characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const idLength = 20;
+    const idLength = num;
     let id = '';
 
     for (let i = 0; i < idLength; i++) {
@@ -32,28 +43,6 @@ export default function Register() {
     return id;
   };
 
-  toast.success({
-    position: 'top-right',
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'colored',
-  });
-
-  toast.error({
-    position: 'top-right',
-    autoClose: 2000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: 'colored',
-  });
-
   const initialValues = {
     product_category: '',
     product_name: '',
@@ -62,27 +51,21 @@ export default function Register() {
     product_gener: '',
     product_color: {
       color1: {
-        id: undefined,
         hashColor: '#000000',
       },
       color2: {
-        id: undefined,
         hashColor: undefined,
       },
       color3: {
-        id: undefined,
         hashColor: undefined,
       },
       color4: {
-        id: undefined,
         hashColor: undefined,
       },
       color5: {
-        id: undefined,
         hashColor: undefined,
       },
       color6: {
-        id: undefined,
         hashColor: undefined,
       },
     },
@@ -272,86 +255,189 @@ export default function Register() {
     return errors;
   };
 
-  const onSubmit = (values) => {
-    console.log(values);
+  const clearMeasure = (values) => {
+    //this function clear null measure
+
+    let allMeasure = values;
+    let newMeasure;
+
+    for (let group in allMeasure) {
+      let currentGroup = allMeasure[group];
+
+      for (let measure in currentGroup) {
+        if (currentGroup[measure].length > 0) {
+          newMeasure = {
+            ...newMeasure,
+            [group]: [...(newMeasure?.[group] ?? []), currentGroup[measure][0]],
+          };
+        }
+      }
+    }
+
+    return newMeasure;
   };
+
+  const clearColors = (values) => {
+    let allColors = values;
+    let newColors;
+
+    for (let group in allColors) {
+      let currentGroup = allColors[group];
+
+      if (currentGroup.hashColor != undefined) {
+        newColors = {
+          ...newColors,
+          [group]: currentGroup.hashColor,
+        };
+      }
+    }
+
+    return newColors;
+  };
+
+  const onSubmit = async (values) => {
+    let id = generateProductId(20);
+    let allImages = values.product_Image;
+
+    try {
+      let uploadPromises = [];
+      let IndexGroup = 0;
+
+      for (let group in allImages) {
+        let currentGroup = allImages[group];
+        let indexImg = 0;
+        const storageRef = ref(storage, `products/${id}/group${IndexGroup}`);
+
+        for (let img in currentGroup) {
+          if (currentGroup[img] != null) {
+            const imageRef = ref(storageRef, `image_${indexImg}`);
+            uploadPromises.push(uploadBytes(imageRef, currentGroup[img]));
+          }
+          indexImg++;
+        }
+        IndexGroup++;
+      }
+
+      await Promise.all(uploadPromises);
+
+      let newProductColor = clearColors(values.product_color);
+      let newProductMeasure = clearMeasure(values.product_measure);
+
+      let product_information = {
+        product_category: values.product_category,
+        product_name: values.product_name,
+        product_price: values.product_price,
+        product_description: values.product_description,
+        product_gener: values.product_gener,
+        product_color: newProductColor,
+        product_measure: newProductMeasure,
+      };
+
+      const docSnapshot = await getDoc(docRef);
+      const existingData = docSnapshot.exists() ? docSnapshot.data() : {};
+
+      const newData = {
+        ...existingData,
+        [id]: {
+          ...product_information,
+        },
+      };
+
+      await setDoc(docRef, newData);
+      toast.success('Produto cadastrado');
+    } catch (error) {
+      toast.error('Erro ao cadastrar o produto');
+      console.log('Producto não foi cadastrado ', error);
+    }
+  };
+
+  const useCategoryBasedRendering = (productCategory) => {
+    const [categoryBasedRendering, setCategoryBasedRendering] = useState({
+      Group_measure_1: false,
+      Group_measure_2: false,
+      Group_measure_3: false,
+    });
+
+    useEffect(() => {
+      let updatedRendering = {
+        Group_measure_1: false,
+        Group_measure_2: false,
+        Group_measure_3: false,
+      };
+
+      if (productCategory !== 'shoes' && productCategory !== 'hat') {
+        updatedRendering.Group_measure_2 = true;
+      }
+
+      if (productCategory === 'shoes') {
+        updatedRendering.Group_measure_3 = true;
+      }
+
+      if (productCategory === 'accessories') {
+        updatedRendering.Group_measure_1 = true;
+      }
+
+      setCategoryBasedRendering(updatedRendering);
+    }, [productCategory]);
+
+    return categoryBasedRendering;
+  };
+
+  toast.success({
+    position: 'top-right',
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'colored',
+  });
+
+  toast.error({
+    position: 'top-right',
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'colored',
+  });
 
   return (
     <Formik
       initialValues={initialValues}
       validate={validate}
-      onSubmit={onSubmit}
+      onSubmit={(values, formikBag) => {
+        onSubmit(values);
+        formikBag.resetForm();
+      }}
     >
       {(formikProps) => {
-        useEffect(() => {
-          const typeProduct = formikProps.values.product_category;
-
-          if (typeProduct !== 'shoes' && typeProduct !== 'hat') {
-            setCategoryBasedRendering({
-              Group_measure_2: true,
-              Group_measure_1: false,
-              Group_measure_3: false,
-            });
-          } else {
-            setCategoryBasedRendering((prevState) => ({
-              ...prevState,
-              Group_measure_2: false,
-            }));
-          }
-
-          if (typeProduct === 'shoes') {
-            setCategoryBasedRendering({
-              Group_measure_2: false,
-              Group_measure_1: false,
-              Group_measure_3: true,
-            });
-          } else {
-            setCategoryBasedRendering((prevState) => ({
-              ...prevState,
-              Group_measure_3: false,
-            }));
-          }
-
-          if (typeProduct === 'hat') {
-            setCategoryBasedRendering({
-              Group_measure_2: false,
-              Group_measure_1: true,
-              Group_measure_3: false,
-            });
-          } else {
-            setCategoryBasedRendering((prevState) => ({
-              ...prevState,
-              Group_measure_1: false,
-            }));
-          }
-        }, [formikProps.values.product_category]);
+        const categoryBasedRendering = useCategoryBasedRendering(
+          formikProps.values.product_category
+        );
 
         return (
           <main>
-            {toastMessage && (
-              <ToastContainer
-                className="toast-position"
-                position="top-right"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="colored"
-              />
-            )}
-
+            <ToastContainer
+              className="toast-position"
+              position="top-right"
+              autoClose={2000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="colored"
+            />
             <form onSubmit={formikProps.handleSubmit}>
-              <RegisterImage
-                formikProps={formikProps}
-                reset={finishedLoading}
-              />
+              <RegisterImage formikProps={formikProps} />
               <RegisterInfo
                 formikProps={formikProps}
-                finishLoading={finishedLoading}
                 categoryBasedRendering={categoryBasedRendering}
               />
             </form>

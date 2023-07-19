@@ -28,6 +28,9 @@
   --fullWhite:#ffffff;
   --mediumWhite:#ffffff75;
 
+  --white-scale-1:#cdcaca;
+  --white-scale-2:#969494;
+
 
   /* ------------ font ------------ */
 
@@ -62,6 +65,25 @@ body {
 body {
   color: white;
 }
+body::-webkit-scrollbar {
+  width: .5rem;
+  border: none;
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--white-scale-1);
+  border-radius: 50px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--white-scale-2);
+}
+
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
 
 a {
   color: inherit;
