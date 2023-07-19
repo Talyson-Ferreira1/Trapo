@@ -81,7 +81,8 @@ export default function ProductInfo({ formikProps, categoryBasedRendering }) {
 
       {renderInputsAfterDefiningCategory && <div className="blockInputs"></div>}
       <div className="container-all-inputs">
-        <InputCategoryProduct formikProps={formikProps} />
+        <InputCategoryProduct formikProps={formikProps} animation={renderInputsAfterDefiningCategory}
+ />
 
         <InputNameProduct formikProps={formikProps} />
 

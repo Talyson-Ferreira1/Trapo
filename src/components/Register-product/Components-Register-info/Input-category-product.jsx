@@ -1,11 +1,13 @@
-export default function InputCategoryProduct({ formikProps, change }) {
+export default function InputCategoryProduct({ formikProps, animation }) {
   return (
     <div className="container-input container-product-category">
-      <label htmlFor="product_category">Primeiro selecione o produto </label>
+      <label htmlFor="product_category">
+        {animation ? 'Primeiro selecione o produto' : 'Categoria'}
+      </label>
       <select
         tabIndex={11}
         name="product_category"
-        className="product_category"
+        className={`product_category ${animation ? 'blink' : ''}`}
         {...formikProps.getFieldProps('product_category')}
       >
         <option disabled value="">

@@ -126,6 +126,14 @@
   flex-direction: column;
 }
 
+.fieldset-Info .label-category.blink{
+  animation: blink .7s ease-in infinite ;
+}
+
+.product_category.blink {
+  animation: blink .7s ease-in infinite ;
+}
+
 .fieldset-Info .container-input-color .deleteLastColor,
 .fieldset-Info .container-input-color .addMoreColor {
   width: 2rem;
@@ -166,7 +174,6 @@
 
 }
 
-/* .form_submit */ 
 .container-submit{
   position: absolute;
   bottom: 0;
@@ -176,6 +183,7 @@
   backdrop-filter: blur(2px);
   padding-left: 2rem;
 }
+
 .fieldset-Info .up,
 .fieldset-Info .down {
   position: absolute;
@@ -253,8 +261,8 @@
   right: 0;
   width: 100%;
   height: 100%;
-  background: var(--mediumWhite) ;
-  backdrop-filter: blur(3px);
+ /*  background: var(--mediumWhite) ;
+  backdrop-filter: blur(3px); */
   z-index: 3;
 }
 
@@ -276,3 +284,14 @@
     }
 }
   
+@keyframes blink {
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.007);
+  }
+  100%{
+    transform: scale(1);
+  }
+}

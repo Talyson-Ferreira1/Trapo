@@ -19,6 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './style-page-register-product.css';
 
 export default function Register() {
+  const [showToast, setShowToast] = useState()
   const [categoryBasedRendering, setCategoryBasedRendering] = useState({
     Group_measure_1: false,
     Group_measure_2: false,
@@ -296,6 +297,7 @@ export default function Register() {
   };
 
   const onSubmit = async (values) => {
+    setShowToast(true)
     let id = generateProductId(20);
     let allImages = values.product_Image;
 
@@ -405,6 +407,15 @@ export default function Register() {
     theme: 'colored',
   });
 
+  useEffect(()=>{
+    if(toast){
+      setTimeout(()=>{
+        setShowToast(false)
+
+      },6000)
+    }
+  },[showToast])
+
   return (
     <Formik
       initialValues={initialValues}
@@ -421,7 +432,9 @@ export default function Register() {
 
         return (
           <main>
-            <ToastContainer
+            {showToast &&(
+
+              <ToastContainer
               className="toast-position"
               position="top-right"
               autoClose={2000}
@@ -433,7 +446,8 @@ export default function Register() {
               draggable
               pauseOnHover
               theme="colored"
-            />
+              />
+            )}
             <form onSubmit={formikProps.handleSubmit}>
               <RegisterImage formikProps={formikProps} />
               <RegisterInfo
